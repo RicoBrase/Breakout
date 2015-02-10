@@ -3,7 +3,8 @@ package de.rico_brase.Breakout.utils;
 import java.awt.Graphics2D;
 
 public class RenderManager {
-
+	
+	public static RenderManager INSTANCE = new RenderManager();
 	
 	public static void drawStringCentered(String s, int width, int height, int YPos, Graphics2D g2d){
         drawStringCentered(s, width, height, 0, YPos, g2d);
@@ -16,5 +17,9 @@ public class RenderManager {
         int startW = width/2 - stringLen/2;
         int startH = height/2 - stringHeight/2;
         g2d.drawString(s, startW + XPos, (height > 0 ? YPos - startH + height : YPos));
+	}
+	
+	public static void renderImageFromAssetsAt(String loc, int xPos, int yPos, int width, int height, Graphics2D g){
+			g.drawImage(Assets.getImageFromAssets(Assets.MainMenu.LOGO), xPos, yPos, width, height, null);
 	}
 }

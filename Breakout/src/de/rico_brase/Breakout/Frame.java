@@ -1,9 +1,14 @@
 package de.rico_brase.Breakout;
 
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 
 import de.rico_brase.Breakout.handlers.KeyHandler;
 import de.rico_brase.Breakout.handlers.MouseHandler;
+import de.rico_brase.Breakout.utils.Assets;
 
 public class Frame extends JFrame{
 
@@ -25,6 +30,11 @@ public class Frame extends JFrame{
 		
 		this.addKeyListener(new KeyHandler(s));
 		this.addMouseListener(new MouseHandler());
+		
+		List<Image> icons = new ArrayList<Image>();
+		icons.add(Assets.getImageFromAssets(Assets.General.ICON_64));
+		
+		this.setIconImages(icons);
 
 		this.setVisible(true);
 		
