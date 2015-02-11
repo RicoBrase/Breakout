@@ -14,6 +14,10 @@ public class MouseHandler implements MouseInputListener{
 		if(Screen.INSTANCE.getCurrentScene() == Scenes.MAIN_MENU){
 			Scenes.MAIN_MENU.getScene().handleLeftMouseClick(e.getXOnScreen(), e.getYOnScreen());
 		}
+		
+		if(Screen.INSTANCE.getCurrentScene() == Scenes.GAME){
+			Scenes.GAME.getScene().handleLeftMouseClick(e.getXOnScreen(), e.getYOnScreen());
+		}
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public abstract class MainMenuButton extends GameButton{
 
 	@Override
 	public void renderButton(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(new Color(170, 200, 0));
 		g.fillRect(this.xPos, this.yPos, this.width, this.height);
 		g.setColor(new Color(0, 0, 0, 150));
 		g.setStroke(new BasicStroke(4F));

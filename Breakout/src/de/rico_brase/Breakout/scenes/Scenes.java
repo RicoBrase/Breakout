@@ -3,6 +3,7 @@ package de.rico_brase.Breakout.scenes;
 import java.awt.Graphics2D;
 
 import de.rico_brase.Breakout.Screen;
+import de.rico_brase.Breakout.scenes.game.SceneGame;
 import de.rico_brase.Breakout.scenes.mainmenu.SceneMainMenu;
 
 public enum Scenes {

@@ -6,7 +6,11 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import de.rico_brase.Breakout.map.Map;
+import de.rico_brase.Breakout.map.MapLoader;
+import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.scenes.Scenes;
+import de.rico_brase.Breakout.utils.Assets;
 
 public class Screen extends JPanel implements Runnable{
 
@@ -87,6 +91,17 @@ public class Screen extends JPanel implements Runnable{
 		}else if(currentScene == Scenes.GAME){
 			currentScene = Scenes.MAIN_MENU;
 		}
+	}
+	
+	public void newGame(){
+		Map map = Assets.loadMapFromAssets(Assets.Game.Maps.TESTMAP);
+		
+		if(map == null){
+			return;
+		}
+		
+		MapRenderer.setMap(map);
+		currentScene = Scenes.GAME;
 	}
 	
 	public Scenes getCurrentScene(){

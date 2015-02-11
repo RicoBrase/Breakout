@@ -22,10 +22,19 @@ public class SceneMainMenu extends Scene{
 			
 			@Override
 			public void onLeftClick(){
-				Screen.INSTANCE.changeScene();
+				Screen.INSTANCE.newGame();
 			}
 			
 		});
+		
+//		this.addElement(new MainMenuButton("Spielen", Screen.WIDTH/4, 400, Screen.WIDTH/2, 100) {
+//			
+//			@Override
+//			public void onLeftClick(){
+//				Screen.INSTANCE.changeScene();
+//			}
+//			
+//		});
 	
 		this.addElement(new MainMenuButton("Spiel beenden", Screen.WIDTH/4, 505, Screen.WIDTH/2, 100) {
 			
