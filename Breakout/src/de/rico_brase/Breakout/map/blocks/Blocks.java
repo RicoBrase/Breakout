@@ -2,9 +2,11 @@ package de.rico_brase.Breakout.map.blocks;
 
 import java.awt.Color;
 
+import de.rico_brase.Breakout.scenes.game.SceneGame;
+
 public enum Blocks {
 
-	EMPTY(null, 0),
+	EMPTY(SceneGame.BACKGROUND_COLOR, 0),
 	BLUE(Color.CYAN, 1),
 	GREEN(Color.GREEN, 2),
 	YELLOW(Color.YELLOW, 3),

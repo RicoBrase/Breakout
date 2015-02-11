@@ -1,0 +1,25 @@
+< Kommentare können beliebig gestartet werden, dürfen aber nicht mit >
+< Ziffern starten.													 >
+
+< Format: xPos;yPos;breakCount                                       >
+0;0;1
+0;1;1
+1;2;2
+1;3;2
+2;4;3
+2;5;3
+3;6;4
+3;7;4
+4;8;5
+4;9;5
+
+5;10;1
+5;11;1
+6;12;2
+6;13;2
+7;14;3
+7;15;3
+8;16;4
+8;17;4
+9;18;5
+9;19;5

@@ -27,19 +27,16 @@ public class Block{
 	
 	public void renderBlock(Graphics2D g){
 		
-		int x = this.xPos * SceneGame.blockWidth;
+		int x = 50+this.xPos * SceneGame.blockWidth;
 		int y = this.yPos * SceneGame.blockHeight;
-
-		if(this.block == Blocks.EMPTY){
-			g.setColor(Color.MAGENTA);
-			g.fillRect(x, y, SceneGame.blockWidth, SceneGame.blockHeight);
-		}
 		
 		Color old_color = g.getColor();
 		g.setColor(color);
 		g.fillRect(x, y, SceneGame.blockWidth, SceneGame.blockHeight);
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, SceneGame.blockWidth, SceneGame.blockHeight);
+		if(this.block != Blocks.EMPTY){
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, SceneGame.blockWidth, SceneGame.blockHeight);
+		}
 		
 		g.setColor(old_color);
 	}
