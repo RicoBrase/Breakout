@@ -40,7 +40,7 @@ public class Assets {
 	
 	public class Game{
 		
-		public static final String BAR = "";
+		public static final String BAR = "/assets/images/game/bar_complete.png";
 		public static final String BALL = "";
 		
 		public class Maps{

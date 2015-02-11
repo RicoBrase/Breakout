@@ -20,6 +20,6 @@ public class RenderManager {
 	}
 	
 	public static void renderImageFromAssetsAt(String loc, int xPos, int yPos, int width, int height, Graphics2D g){
-			g.drawImage(Assets.getImageFromAssets(Assets.MainMenu.LOGO), xPos, yPos, width, height, null);
+			g.drawImage(Assets.getImageFromAssets(loc), xPos, yPos, width, height, null);
 	}
 }

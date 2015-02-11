@@ -16,8 +16,8 @@ public enum Blocks {
 	private Color color;
 	private int breakCount;
 	
-	public static final double WIDTH_MULT = 0.80D/10D;
-	public static final double HEIGHT_MULT = 0.25D/10D;
+	public static final double WIDTH_MULT = 1.00D/10D;
+	public static final double HEIGHT_MULT = 0.30D/10D;
 	
 	private Blocks(Color color, int breakCount){
 		this.color = color;

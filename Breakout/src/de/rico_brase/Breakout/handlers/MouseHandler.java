@@ -1,10 +1,14 @@
 package de.rico_brase.Breakout.handlers;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.MouseEvent;
 
 import javax.swing.event.MouseInputListener;
 
+import de.rico_brase.Breakout.Frame;
 import de.rico_brase.Breakout.Screen;
+import de.rico_brase.Breakout.bar.Bar;
 import de.rico_brase.Breakout.scenes.Scenes;
 
 public class MouseHandler implements MouseInputListener{
@@ -33,7 +37,18 @@ public class MouseHandler implements MouseInputListener{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+		if(e.getComponent().getClass() == Frame.class && Screen.INSTANCE.getCurrentScene() == Scenes.GAME){
+			
+			try {
+				Robot robot = new Robot();
+				robot.mouseMove(e.getXOnScreen()-100, e.getYOnScreen());
+				
+				e.consume();
+			} catch (AWTException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
 	}
 
 	@Override
@@ -47,13 +62,18 @@ public class MouseHandler implements MouseInputListener{
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		
+	public void mouseDragged(MouseEvent e) {
+		if(Screen.INSTANCE.getCurrentScene() == Scenes.GAME){
+			Bar.setXPos(e.getX());
+		}
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
+	public void mouseMoved(MouseEvent e) {
+		
+		if(Screen.INSTANCE.getCurrentScene() == Scenes.GAME){
+			Bar.setXPos(e.getX());
+		}
 		
 	}
-
 }

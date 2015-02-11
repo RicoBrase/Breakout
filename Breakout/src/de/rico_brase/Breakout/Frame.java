@@ -1,5 +1,7 @@
 package de.rico_brase.Breakout;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +27,16 @@ public class Frame extends JFrame{
 		this.setUndecorated(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		device.setFullScreenWindow(this);
+		
+		
 		Screen s = new Screen();
 		this.add(s);
 		
 		this.addKeyListener(new KeyHandler(s));
 		this.addMouseListener(new MouseHandler());
+		this.addMouseMotionListener(new MouseHandler());
 		
 		List<Image> icons = new ArrayList<Image>();
 		icons.add(Assets.getImageFromAssets(Assets.General.ICON_64));

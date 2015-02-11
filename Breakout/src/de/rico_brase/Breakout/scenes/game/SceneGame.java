@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import de.rico_brase.Breakout.Screen;
+import de.rico_brase.Breakout.bar.Bar;
 import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.map.blocks.Block;
@@ -36,8 +37,11 @@ public class SceneGame extends Scene{
 		g.fillRect(0, 0, s.getWidth(), s.getHeight());
 		
 		MapRenderer.renderMap(g);
+		
+		Bar.renderBar(g);
+		
 	}
-
+	
 	@Override
 	public void handleLeftMouseClick(int xPos, int yPos){
 		Map map = MapRenderer.getLoadedMap();

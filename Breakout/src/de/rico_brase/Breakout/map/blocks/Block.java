@@ -27,8 +27,8 @@ public class Block{
 	
 	public void renderBlock(Graphics2D g){
 		
-		int x = 50+this.xPos * SceneGame.blockWidth;
-		int y = this.yPos * SceneGame.blockHeight;
+		int x = this.xPos * SceneGame.blockWidth;
+		int y = this.yPos + (this.yPos * SceneGame.blockHeight);
 		
 		Color old_color = g.getColor();
 		g.setColor(color);

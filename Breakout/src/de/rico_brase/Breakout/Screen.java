@@ -1,11 +1,16 @@
 package de.rico_brase.Breakout;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import de.rico_brase.Breakout.bar.Bar;
 import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapLoader;
 import de.rico_brase.Breakout.map.MapRenderer;
@@ -26,11 +31,16 @@ public class Screen extends JPanel implements Runnable{
 	public static int WIDTH = 0;
 	public static int HEIGHT = 0;
 	
+	private Cursor blankCursor;
+	
 	public Screen(){
 		super();
 		
 		INSTANCE = this;
 		currentScene = Scenes.MAIN_MENU;
+		
+		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+		blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blankCursor");
 		
 		th = new Thread(this);
 		th.start();
@@ -90,6 +100,7 @@ public class Screen extends JPanel implements Runnable{
 			currentScene = Scenes.GAME;
 		}else if(currentScene == Scenes.GAME){
 			currentScene = Scenes.MAIN_MENU;
+			this.setCursor(Cursor.getDefaultCursor());
 		}
 	}
 	
@@ -100,8 +111,12 @@ public class Screen extends JPanel implements Runnable{
 			return;
 		}
 		
+		Bar.reset = true;
+		
 		MapRenderer.setMap(map);
 		currentScene = Scenes.GAME;
+		
+		this.setCursor(blankCursor);
 	}
 	
 	public Scenes getCurrentScene(){
