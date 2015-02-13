@@ -22,4 +22,10 @@ public class RenderManager {
 	public static void renderImageFromAssetsAt(String loc, int xPos, int yPos, int width, int height, Graphics2D g){
 			g.drawImage(Assets.getImageFromAssets(loc), xPos, yPos, width, height, null);
 	}
+	
+	public static void renderBall(Graphics2D g){
+		
+		
+		
+	}
 }

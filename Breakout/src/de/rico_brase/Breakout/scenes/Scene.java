@@ -32,4 +32,6 @@ public abstract class Scene {
 
 	public abstract void renderScene(Graphics2D g, Screen s);
 	
+	public abstract void onSceneLoaded();
+	
 }

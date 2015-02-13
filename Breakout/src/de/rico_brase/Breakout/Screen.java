@@ -10,9 +10,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import de.rico_brase.Breakout.ball.Ball;
 import de.rico_brase.Breakout.bar.Bar;
 import de.rico_brase.Breakout.map.Map;
-import de.rico_brase.Breakout.map.MapLoader;
 import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
@@ -100,6 +100,7 @@ public class Screen extends JPanel implements Runnable{
 			currentScene = Scenes.GAME;
 		}else if(currentScene == Scenes.GAME){
 			currentScene = Scenes.MAIN_MENU;
+			Scenes.MAIN_MENU.getScene().onSceneLoaded();
 			this.setCursor(Cursor.getDefaultCursor());
 		}
 	}
@@ -111,12 +112,13 @@ public class Screen extends JPanel implements Runnable{
 			return;
 		}
 		
-		Bar.reset = true;
-		
 		MapRenderer.setMap(map);
 		currentScene = Scenes.GAME;
 		
+		Scenes.GAME.getScene().onSceneLoaded();
+		
 		this.setCursor(blankCursor);
+		
 	}
 	
 	public Scenes getCurrentScene(){

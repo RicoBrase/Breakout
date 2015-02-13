@@ -64,4 +64,9 @@ public class SceneMainMenu extends Scene{
 		//g.setFont(orig_font);
 	}
 
+	@Override
+	public void onSceneLoaded() {
+		
+	}
+
 }

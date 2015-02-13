@@ -8,8 +8,8 @@ import de.rico_brase.Breakout.utils.RenderManager;
 
 public class Bar {
 
-	private static int width = 500;
-	private static final int height = 25;
+	public static int width = 500;
+	public static final int height = 25;
 	
 	private static int xPos = 0;
 	private static int yPos = 0;
@@ -21,7 +21,8 @@ public class Bar {
 	public static void renderBar(Graphics2D g){
 		
 		if(reset){
-			xPos = Screen.INSTANCE.getWidth()/2 - width/2;
+			width = Screen.INSTANCE.getWidth()/5;
+			xPos = Screen.INSTANCE.getWidth()/2;
 			reset = false;
 		}
 		
@@ -29,7 +30,7 @@ public class Bar {
 		
 		
 		
-		RenderManager.renderImageFromAssetsAt(Assets.Game.BAR, xPos, yPos, width, height, g);
+		RenderManager.renderImageFromAssetsAt(Assets.Game.BAR, xPos-width/2, yPos, width, height, g);
 	}
 	
 	public static void setXPos(int xPos){
@@ -54,6 +55,14 @@ public class Bar {
 		if(xPos <= Screen.INSTANCE.getWidth() - moveMultiplier){
 			xPos += moveMultiplier;
 		}
+	}
+	
+	public static int getYPos(){
+		return yPos;
+	}
+	
+	public static int getXPos(){
+		return xPos;
 	}
 	
 	
