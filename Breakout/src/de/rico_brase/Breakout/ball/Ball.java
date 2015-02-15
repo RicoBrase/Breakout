@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import de.rico_brase.Breakout.Screen;
+import de.rico_brase.Breakout.ballmovement.MovementUtils;
+import de.rico_brase.Breakout.ballmovement.Rotation;
 import de.rico_brase.Breakout.bar.Bar;
 
 public class Ball {
@@ -15,7 +17,7 @@ public class Ball {
 	private static int xPos = 0;
 	private static int yPos = 0;
 	
-	private static int speedMultiplier = 45;
+	private static int speedMultiplier = 4;
 	
 	public static boolean stickToBar = true;
 	
@@ -36,6 +38,10 @@ public class Ball {
 	}
 	
 	public static void move(){
+		double newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
+		double newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
+		
+		setPos(xPos+(int)newX, yPos+(int)newY);
 		
 	}
 	
@@ -53,4 +59,5 @@ public class Ball {
 	public static int getXPos(){
 		return xPos;
 	}
+	
 }

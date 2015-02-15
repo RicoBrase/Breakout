@@ -51,6 +51,10 @@ public class SceneGame extends Scene{
 		
 		Bar.renderBar(g);
 		
+		if(!Ball.stickToBar){
+			Ball.move();
+		}
+		
 		Ball.renderBall(g);
 		
 	}

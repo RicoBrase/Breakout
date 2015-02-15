@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import de.rico_brase.Breakout.Screen;
+import de.rico_brase.Breakout.ball.Ball;
 import de.rico_brase.Breakout.bar.Bar;
 import de.rico_brase.Breakout.scenes.Scenes;
 
@@ -29,18 +30,8 @@ public class KeyHandler implements KeyListener{
 		case KeyEvent.VK_SPACE:
 			if(s.getCurrentScene() == Scenes.MAIN_MENU){
 				s.changeScene();
-			}
-			break;
-			
-		case KeyEvent.VK_RIGHT:
-			if(s.getCurrentScene() == Scenes.GAME){
-				Bar.moveRight();
-			}
-			break;
-			
-		case KeyEvent.VK_LEFT:
-			if(s.getCurrentScene() == Scenes.GAME){
-				Bar.moveLeft();
+			}else if(s.getCurrentScene() == Scenes.GAME && Ball.stickToBar){
+				Ball.stickToBar = !Ball.stickToBar;
 			}
 			break;
 		}
