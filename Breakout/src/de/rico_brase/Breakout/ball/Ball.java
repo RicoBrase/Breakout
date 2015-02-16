@@ -8,6 +8,8 @@ import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ballmovement.MovementUtils;
 import de.rico_brase.Breakout.ballmovement.Rotation;
 import de.rico_brase.Breakout.bar.Bar;
+import de.rico_brase.Breakout.utils.Assets;
+import de.rico_brase.Breakout.utils.RenderManager;
 
 public class Ball {
 
@@ -23,13 +25,15 @@ public class Ball {
 	
 	public static void renderBall(Graphics2D g){
 		//RenderManager.renderImageFromAssetsAt(Assets.Game.BAR, xPos-width/2, yPos, width, height, g);
-		Color c = g.getColor();
-		g.setColor(Color.ORANGE);
-		g.fillOval(xPos, yPos, width, height);
-		g.setColor(new Color(0, 0, 0, 255));
-		g.setStroke(new BasicStroke(2.0F));
-		g.drawOval(xPos, yPos, width, height);
-		g.setColor(c);
+		//Color c = g.getColor();
+		//g.setColor(Color.ORANGE);
+		//g.fillOval(xPos, yPos, width, height);
+		//g.setColor(new Color(0, 0, 0, 255));
+		//g.setStroke(new BasicStroke(2.0F));
+		//g.drawOval(xPos, yPos, width, height);
+		//g.setColor(c);
+		
+		RenderManager.renderImageFromAssetsAt(Assets.Game.BALL, xPos, yPos, width, height, g);
 	}
 	
 	public static void setPos(int xPos, int yPos){
@@ -41,6 +45,10 @@ public class Ball {
 		double newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 		double newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
 		
+		if((xPos+(int)newX) <= 0 && (xPos+(int)newX) >= Screen.INSTANCE.getWidth()){
+			
+		}
+		
 		setPos(xPos+(int)newX, yPos+(int)newY);
 		
 	}
@@ -50,6 +58,15 @@ public class Ball {
 		Ball.yPos = Screen.INSTANCE.getHeight() - Bar.height - height - 50;
 		
 		stickToBar = true;
+	}
+	
+	public static void bounce(){
+		boolean invertBonus = Rotation.rand.nextBoolean();
+		int angleBonus = Rotation.rand.nextInt(90);
+		if(invertBonus) angleBonus = -1 * angleBonus;
+		
+		Rotation.invert();
+		Rotation.addAngle(angleBonus);
 	}
 	
 	public static int getYPos(){

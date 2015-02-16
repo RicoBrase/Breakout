@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ball.Ball;
+import de.rico_brase.Breakout.ballmovement.Rotation;
 import de.rico_brase.Breakout.bar.Bar;
 import de.rico_brase.Breakout.scenes.Scenes;
 
@@ -31,7 +32,9 @@ public class KeyHandler implements KeyListener{
 			if(s.getCurrentScene() == Scenes.MAIN_MENU){
 				s.changeScene();
 			}else if(s.getCurrentScene() == Scenes.GAME && Ball.stickToBar){
-				Ball.stickToBar = !Ball.stickToBar;
+				//Ball.stickToBar = !Ball.stickToBar;
+				Rotation.addAngle(90);
+				System.out.println(Rotation.getAngle());
 			}
 			break;
 		}
