@@ -11,9 +11,10 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import de.rico_brase.Breakout.ball.Ball;
-import de.rico_brase.Breakout.bar.Bar;
+import de.rico_brase.Breakout.ballmovement.Rotation;
 import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapRenderer;
+import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 
@@ -64,6 +65,7 @@ public class Screen extends JPanel implements Runnable{
 		
 		g.setColor(Color.BLACK);
 		g.drawString("FPS: " + fps, 10, 15);
+		g.drawString("Angle: " + Rotation.getAngle(), 10, 30);
 		
 	}
 

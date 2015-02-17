@@ -9,7 +9,7 @@ import javax.swing.event.MouseInputListener;
 import de.rico_brase.Breakout.Frame;
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ball.Ball;
-import de.rico_brase.Breakout.bar.Bar;
+import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.scenes.Scenes;
 
 public class MouseHandler implements MouseInputListener{
@@ -68,7 +68,7 @@ public class MouseHandler implements MouseInputListener{
 			
 			int xPos = e.getXOnScreen();
 			
-			Bar.setXPos(xPos);
+			Paddle.setXPos(xPos);
 			if(Ball.stickToBar) Ball.setPos(xPos-Ball.width/2, Ball.getYPos());
 			
 		}
@@ -88,7 +88,7 @@ public class MouseHandler implements MouseInputListener{
 //				e1.printStackTrace();
 //			}
 			
-			Bar.setXPos(xPos);
+			Paddle.setXPos(xPos);
 			if(Ball.stickToBar) Ball.setPos(xPos-Ball.width/2, Ball.getYPos());
 			
 			

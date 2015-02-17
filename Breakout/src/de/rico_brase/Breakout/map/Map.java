@@ -78,6 +78,11 @@ public class Map {
 		}
 	}
 	
+	public void breakBlock(int xPos, int yPos){
+		Block block = this.getBlockAt(xPos, yPos);
+		this.setBlockAt(xPos, yPos, block.breakBlock());
+	}
+	
 	public void render(Graphics2D g){
 		for(int y = 0; y < this.blocks[0].length; y++){
 			for(int x = 0; x < this.blocks.length; x++){

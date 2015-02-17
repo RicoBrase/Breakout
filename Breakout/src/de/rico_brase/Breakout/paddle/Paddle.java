@@ -1,4 +1,4 @@
-package de.rico_brase.Breakout.bar;
+package de.rico_brase.Breakout.paddle;
 
 import java.awt.Graphics2D;
 
@@ -6,7 +6,7 @@ import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
 
-public class Bar {
+public class Paddle {
 
 	public static int width = 500;
 	public static final int height = 25;
@@ -28,18 +28,16 @@ public class Bar {
 		
 		yPos = Screen.INSTANCE.getHeight() - height - 50;
 		
-		
-		
 		RenderManager.renderImageFromAssetsAt(Assets.Game.BAR, xPos-width/2, yPos, width, height, g);
 	}
 	
 	public static void setXPos(int xPos){
 		//Bar.xPos = xPos;
 		
-		if(xPos > Bar.xPos){
-			Bar.xPos = Bar.xPos + (xPos-Bar.xPos);
-		}else if(xPos < Bar.xPos){
-			Bar.xPos = Bar.xPos - (Bar.xPos - xPos);
+		if(xPos > Paddle.xPos){
+			Paddle.xPos = Paddle.xPos + (xPos-Paddle.xPos);
+		}else if(xPos < Paddle.xPos){
+			Paddle.xPos = Paddle.xPos - (Paddle.xPos - xPos);
 		}else{
 			
 		}
@@ -64,7 +62,5 @@ public class Bar {
 	public static int getXPos(){
 		return xPos;
 	}
-	
-	
 	
 }

@@ -25,6 +25,10 @@ public class Block{
 		this.yPos = (yPos);
 	}
 	
+	public Blocks getBlockType(){
+		return this.block;
+	}
+	
 	public void renderBlock(Graphics2D g){
 		
 		int x = this.xPos * SceneGame.blockWidth;

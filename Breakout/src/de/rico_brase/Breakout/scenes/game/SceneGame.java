@@ -6,11 +6,11 @@ import java.awt.Robot;
 
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ball.Ball;
-import de.rico_brase.Breakout.bar.Bar;
 import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
+import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.scenes.Scene;
 
 public class SceneGame extends Scene{
@@ -49,7 +49,7 @@ public class SceneGame extends Scene{
 		
 		MapRenderer.renderMap(g);
 		
-		Bar.renderBar(g);
+		Paddle.renderBar(g);
 		
 		if(!Ball.stickToBar){
 			Ball.move();
@@ -61,16 +61,16 @@ public class SceneGame extends Scene{
 	
 	@Override
 	public void handleLeftMouseClick(int xPos, int yPos){
-		Map map = MapRenderer.getLoadedMap();
-		Block block = map.getBlockAt(xPos, yPos);
-		if(block != null){
-			map.setBlockAt(xPos, yPos, block.breakBlock());
-		}
+//		Map map = MapRenderer.getLoadedMap();
+//		Block block = map.getBlockAt(xPos, yPos);
+//		if(block != null){
+//			map.setBlockAt(xPos, yPos, block.breakBlock());
+//		}
 	}
 
 	@Override
 	public void onSceneLoaded() {
-		Bar.reset = true;
+		Paddle.reset = true;
 		Ball.resetBall();
 	}
 	
