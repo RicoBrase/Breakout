@@ -47,7 +47,7 @@ public class MapLoader {
 			
 			br.close();
 			
-			System.out.println("[Debug] Successfully loaded map: " + file.getName());
+			//System.out.println("[Debug] Successfully loaded map: " + file.getName());
 			
 			return new Map(blocks);
 			

@@ -82,7 +82,9 @@ public class Map {
 	
 	public void breakBlock(int xPos, int yPos){
 		Block block = this.getBlockAt(xPos, yPos);
-		this.setBlockAt(xPos, yPos, block.breakBlock());
+		if(block != null){
+			this.setBlockAt(xPos, yPos, block.breakBlock());
+		}
 		
 		boolean winflag = true;
 		

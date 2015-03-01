@@ -3,6 +3,7 @@ package de.rico_brase.Breakout.config;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class LocalConfigFile extends File{
@@ -18,6 +19,12 @@ public class LocalConfigFile extends File{
 			try {
 				this.getParentFile().mkdirs();
 				this.createNewFile();
+				
+				FileWriter writer = new FileWriter(this);
+				writer.write("display_special_imgs=false");
+				writer.flush();
+				writer.close();
+				
 			} catch (IOException e) {
 				//e.printStackTrace();
 				System.err.println("Config konnte nicht erstellt werden!");

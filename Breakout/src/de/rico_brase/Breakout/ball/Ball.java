@@ -97,7 +97,7 @@ public class Ball {
 		
 		//PADDLE
 		if((yPos+new Double(newY).intValue()) >= Paddle.getYPos()-Paddle.height/2-Ball.height/2){
-			if((xPos+ new Double(newX).intValue()) >= Paddle.getXPos()-Paddle.width/2 && (xPos+ new Double(newX).intValue()) <= Paddle.getXPos() + Paddle.width/2){
+			if((xPos+ new Double(newX).intValue()) + (Ball.width) >= Paddle.getXPos()-Paddle.width/2 && (xPos+ new Double(newX).intValue()) <= Paddle.getXPos() + Paddle.width/2){
 				bounce(Wall.PADDLE);
 				newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 				newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
@@ -105,7 +105,7 @@ public class Ball {
 			
 		}
 		
-		Block block = MapRenderer.getLoadedMap().getBlockAt((xPos+ new Double(newX).intValue()), (yPos+new Double(newY).intValue()));
+		Block block = MapRenderer.getLoadedMap().getBlockAt((xPos+ new Double(newX).intValue() + (Ball.width/2)), (yPos+new Double(newY).intValue() + (Ball.height/2)));
 		
 		//Touches a block
 		if(block != null && block.getBlockType() != Blocks.EMPTY){
@@ -155,7 +155,8 @@ public class Ball {
 				if(Ball.xPos < Paddle.getXPos()){
 					for(int i = 0; i < (int)(Paddle.width/paddleSegmentWidth); i++){
 						if((i * paddleSegmentWidth) > (Paddle.getXPos() - Ball.xPos)){
-							Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.UP) - (int)(i*paddleSegmentWidth));
+							Rotation.setAngle(Directions.UP.getAngle() + (int)(i*paddleSegmentWidth));
+							System.out.println("i: " + i + " | paddleSegmentWidth: " + paddleSegmentWidth + " | i*paddleSegmentWidth: " + i*paddleSegmentWidth);
 						}
 					}
 				}
@@ -164,6 +165,7 @@ public class Ball {
 					for(int i = 0; i < (int)(Paddle.width/paddleSegmentWidth); i++){
 						if((i * paddleSegmentWidth) < (Ball.xPos - Paddle.getXPos())){
 							Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.UP) + (int)(i*paddleSegmentWidth));
+							System.out.println("i: " + i + " | paddleSegmentWidth: " + paddleSegmentWidth + " | i*paddleSegmentWidth: " + i*paddleSegmentWidth);
 						}
 					}
 				}
