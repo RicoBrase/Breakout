@@ -11,6 +11,7 @@ import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
 import de.rico_brase.Breakout.paddle.Paddle;
+import de.rico_brase.Breakout.player.Player;
 import de.rico_brase.Breakout.scenes.Scene;
 
 public class SceneGame extends Scene{
@@ -22,8 +23,11 @@ public class SceneGame extends Scene{
 	
 	public static final Color BACKGROUND_COLOR = Color.GRAY;
 	
+	private boolean paused = false;
+	
 	public SceneGame(){
 		INSTANCE = this;
+		new Player();
 	}
 	
 	@Override
@@ -38,7 +42,7 @@ public class SceneGame extends Scene{
 			ex.printStackTrace();
 		}
 		
-		Ball.resetBall();
+		Paddle.reset = true;
 	}
 
 	@Override
@@ -51,7 +55,7 @@ public class SceneGame extends Scene{
 		
 		Paddle.renderBar(g);
 		
-		if(!Ball.stickToBar){
+		if(!Ball.stickToBar && !paused){
 			Ball.move();
 		}
 		
@@ -72,6 +76,18 @@ public class SceneGame extends Scene{
 	public void onSceneLoaded() {
 		Paddle.reset = true;
 		Ball.resetBall();
+	}
+	
+	public boolean isPaused(){
+		return this.paused;
+	}
+	
+	public void pause(){
+		this.paused = true;
+	}
+	
+	public void resume(){
+		this.paused = false;
 	}
 	
 }

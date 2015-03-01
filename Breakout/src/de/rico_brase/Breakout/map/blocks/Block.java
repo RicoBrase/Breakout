@@ -3,6 +3,10 @@ package de.rico_brase.Breakout.map.blocks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import de.rico_brase.Breakout.Screen;
+import de.rico_brase.Breakout.map.Map;
+import de.rico_brase.Breakout.map.MapRenderer;
+import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.scenes.game.SceneGame;
 
 public class Block{
@@ -48,6 +52,7 @@ public class Block{
 	public Block breakBlock(){
 		Blocks newBlock = block.getBreakedBlock();
 		this.block = newBlock;
+		
 		return (newBlock == null ? null : new Block(newBlock, this.xPos, this.yPos));
 	}
 }

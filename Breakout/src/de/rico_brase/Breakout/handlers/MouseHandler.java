@@ -11,6 +11,7 @@ import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ball.Ball;
 import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.scenes.Scenes;
+import de.rico_brase.Breakout.scenes.game.SceneGame;
 
 public class MouseHandler implements MouseInputListener{
 
@@ -19,13 +20,15 @@ public class MouseHandler implements MouseInputListener{
 		
 		if(e.getButton() == MouseEvent.BUTTON1){
 		
-			if(Screen.INSTANCE.getCurrentScene() == Scenes.MAIN_MENU){
-				Scenes.MAIN_MENU.getScene().handleLeftMouseClick(e.getXOnScreen(), e.getYOnScreen());
-			}
-		
-			if(Screen.INSTANCE.getCurrentScene() == Scenes.GAME){
-				Scenes.GAME.getScene().handleLeftMouseClick(e.getXOnScreen(), e.getYOnScreen());
-			}
+//			if(Screen.INSTANCE.getCurrentScene() == Scenes.MAIN_MENU){
+//				Scenes.MAIN_MENU.getScene().handleLeftMouseClick(e.getXOnScreen(), e.getYOnScreen());
+//			}
+//		
+//			if(Screen.INSTANCE.getCurrentScene() == Scenes.GAME){
+//				Scenes.GAME.getScene().handleLeftMouseClick(e.getXOnScreen(), e.getYOnScreen());
+//			}
+			
+			Screen.INSTANCE.getCurrentScene().getScene().handleLeftMouseClick(e.getXOnScreen(), e.getYOnScreen());
 			
 		}
 		
@@ -68,9 +71,10 @@ public class MouseHandler implements MouseInputListener{
 			
 			int xPos = e.getXOnScreen();
 			
-			Paddle.setXPos(xPos);
-			if(Ball.stickToBar) Ball.setPos(xPos-Ball.width/2, Ball.getYPos());
-			
+			if(!SceneGame.INSTANCE.isPaused()){
+				Paddle.setXPos(xPos);
+				if(Ball.stickToBar) Ball.setPos(xPos-Ball.width/2, Ball.getYPos());
+			}
 		}
 	}
 
@@ -88,9 +92,10 @@ public class MouseHandler implements MouseInputListener{
 //				e1.printStackTrace();
 //			}
 			
-			Paddle.setXPos(xPos);
-			if(Ball.stickToBar) Ball.setPos(xPos-Ball.width/2, Ball.getYPos());
-			
+			if(!SceneGame.INSTANCE.isPaused()){
+				Paddle.setXPos(xPos);
+				if(Ball.stickToBar) Ball.setPos(xPos-Ball.width/2, Ball.getYPos());
+			}
 			
 		}
 		

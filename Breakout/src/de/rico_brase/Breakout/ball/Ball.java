@@ -11,6 +11,8 @@ import de.rico_brase.Breakout.map.Wall;
 import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
 import de.rico_brase.Breakout.paddle.Paddle;
+import de.rico_brase.Breakout.player.Player;
+import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
 
@@ -26,6 +28,8 @@ public class Ball {
 	private static double newY = 0;
 	
 	private static int speedMultiplier = 5;
+	
+	private static boolean firstLaunch = true;
 	
 	public static boolean stickToBar = true;
 	
@@ -50,10 +54,10 @@ public class Ball {
 		Ball.yPos = yPos;
 	}
 	
-	private static void calculateNewPosition(){
-		newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
-		newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
-	}
+//	private static void calculateNewPosition(){
+//		newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
+//		newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
+//	}
 	
 	public static void move(){
 		
@@ -85,8 +89,10 @@ public class Ball {
 		
 		//BOTTOM
 		if((yPos+new Double(newY).intValue()) >= Screen.INSTANCE.getHeight()-Ball.height){
-			System.out.println("[Debug] Lost!");
+			//System.out.println("[Debug] Lost!");
+			Player.INSTANCE.die();
 			resetBall();
+			if(!Player.INSTANCE.isAlive()) Screen.INSTANCE.setScene(Scenes.LOST);
 		}
 		
 		//PADDLE
@@ -115,122 +121,62 @@ public class Ball {
 	
 	public static void resetBall(){
 		Ball.xPos = Paddle.getXPos() - Ball.width/2;
-		Ball.yPos = Screen.INSTANCE.getHeight() - Paddle.height - height - 50;
-		
-		Rotation.setAngle(Directions.UP.getAngle());
+		Ball.yPos = Screen.INSTANCE.getHeight() - Paddle.height - height - 50 - (Player.INSTANCE.lives == 3 ? 0 : speedMultiplier);
 		
 		stickToBar = true;
+		
+		Rotation.setAngle(Directions.UP.getAngle());
 	}
 	
 	public static void bounce(Wall wall){
-		int angleBonus = Rotation.rand.nextInt(45);
+		int angleBonus = Rotation.rand.nextInt(25);
+		
+		while(angleBonus < 15 && angleBonus > -15){
+			angleBonus = (Rotation.rand.nextBoolean() ? 1 : -1) * 15;
+		}
 		
 		if(wall == Wall.LEFT){
-			if(Rotation.getAngle() <= Directions.LEFT.getAngle() && Rotation.getAngle() > Directions.DOWN.getAngle()){
-				if(Rotation.getAngle() == Directions.LEFT.getAngle()){
-					if(angleBonus < 10) angleBonus = (Rotation.rand.nextBoolean() ? 1 : -1) * 10;
-				}
-				
-				
-				
-				Rotation.setAngle(Directions.RIGHT.getAngle() + angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() > Directions.LEFT.getAngle() && Rotation.getAngle() < Directions.UP.getAngle()){
-				Rotation.setAngle(Directions.RIGHT.getAngle() - angleBonus);
-				return;
-			}
+			Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.RIGHT));
 		}
 		
 		if(wall == Wall.RIGHT){
-			if(Rotation.getAngle() <= Directions.RIGHT.getAngle() + (Rotation.getAngle() > 0 ? 360 : 0) && Rotation.getAngle() > Directions.UP.getAngle()){
-				if(Rotation.getAngle() == Directions.RIGHT.getAngle()){
-					if(angleBonus < 10) angleBonus = (Rotation.rand.nextBoolean() ? 1 : -1) * 10;
-				}
-				Rotation.setAngle(Directions.LEFT.getAngle() + angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() > Directions.RIGHT.getAngle() && Rotation.getAngle() < Directions.DOWN.getAngle()){
-				Rotation.setAngle(Directions.LEFT.getAngle() - angleBonus);
-				return;
-			}
+			Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.LEFT));
 		}
 		
 		if(wall == Wall.TOP){
-			if(Rotation.getAngle() <= Directions.UP.getAngle() && Rotation.getAngle() > Directions.LEFT.getAngle()){
-				if(Rotation.getAngle() == Directions.UP.getAngle()){
-					if(angleBonus < 10) angleBonus = (Rotation.rand.nextBoolean() ? 1 : -1) * 10;
-				}
-				Rotation.setAngle(Directions.DOWN.getAngle() + angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() > Directions.UP.getAngle() && Rotation.getAngle() < Directions.RIGHT.getAngle() + 360){
-				Rotation.setAngle(Directions.DOWN.getAngle() - angleBonus);
-				return;
-			}
-			
-//			Rotation.invert();
-//			Rotation.addAngle(angleBonus);
+			Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.DOWN));
 		}
 		
 		if(wall == Wall.PADDLE){
-			if(Rotation.getAngle() <= Directions.DOWN.getAngle() && Rotation.getAngle() > Directions.RIGHT.getAngle()){
+			
+			double paddleSegmentWidth = (Paddle.width/2D) / 45D;
+			
+			if(Rotation.getAngle() == Directions.DOWN.getAngle()){
+				if(Ball.xPos < Paddle.getXPos()){
+					for(int i = 0; i < (int)(Paddle.width/paddleSegmentWidth); i++){
+						if((i * paddleSegmentWidth) > (Paddle.getXPos() - Ball.xPos)){
+							Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.UP) - (int)(i*paddleSegmentWidth));
+						}
+					}
+				}
 				
-				Rotation.setAngle((Directions.RIGHT.getAngle() + 360) - (Rotation.getAngle()));
-				return;
-			}
-			if(Rotation.getAngle() > Directions.DOWN.getAngle() && Rotation.getAngle() < Directions.LEFT.getAngle() + 360){
-				Rotation.setAngle(Directions.LEFT.getAngle() + (Directions.LEFT.getAngle()-Rotation.getAngle()));
-				return;
+				if(Ball.xPos > Paddle.getXPos()){
+					for(int i = 0; i < (int)(Paddle.width/paddleSegmentWidth); i++){
+						if((i * paddleSegmentWidth) < (Ball.xPos - Paddle.getXPos())){
+							Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.UP) + (int)(i*paddleSegmentWidth));
+						}
+					}
+				}
+			}else{
+				Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.UP));
 			}
 		}
 		
 		if(wall == null){
-			if(Rotation.getAngle() <= Directions.DOWN.getAngle() && Rotation.getAngle() > Directions.RIGHT.getAngle()){
-				
-				Rotation.setAngle((Directions.RIGHT.getAngle() + 360) - (Rotation.getAngle()));
-				return;
-			}
-			if(Rotation.getAngle() > Directions.DOWN.getAngle() && Rotation.getAngle() < Directions.LEFT.getAngle() + 360){
-				Rotation.setAngle(Directions.LEFT.getAngle() + (Directions.LEFT.getAngle()-Rotation.getAngle()));
-				return;
-			}
-			if(Rotation.getAngle() <= Directions.UP.getAngle() && Rotation.getAngle() > Directions.LEFT.getAngle()){
-				if(Rotation.getAngle() == Directions.UP.getAngle()){
-					if(angleBonus < 10) angleBonus = (Rotation.rand.nextBoolean() ? 1 : -1) * 10;
-				}
-				Rotation.setAngle(Directions.DOWN.getAngle() + angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() > Directions.UP.getAngle() && Rotation.getAngle() < Directions.RIGHT.getAngle() + 360){
-				Rotation.setAngle(Directions.DOWN.getAngle() - angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() <= Directions.RIGHT.getAngle() + (Rotation.getAngle() > 0 ? 360 : 0) && Rotation.getAngle() > Directions.UP.getAngle()){
-				if(Rotation.getAngle() == Directions.RIGHT.getAngle()){
-					if(angleBonus < 10) angleBonus = (Rotation.rand.nextBoolean() ? 1 : -1) * 10;
-				}
-				Rotation.setAngle(Directions.LEFT.getAngle() + angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() > Directions.RIGHT.getAngle() && Rotation.getAngle() < Directions.DOWN.getAngle()){
-				Rotation.setAngle(Directions.LEFT.getAngle() - angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() <= Directions.LEFT.getAngle() && Rotation.getAngle() > Directions.DOWN.getAngle()){
-				if(Rotation.getAngle() == Directions.LEFT.getAngle()){
-					if(angleBonus < 10) angleBonus = (Rotation.rand.nextBoolean() ? 1 : -1) * 10;
-				}
-				
-				Rotation.setAngle(Directions.RIGHT.getAngle() + angleBonus);
-				return;
-			}
-			if(Rotation.getAngle() > Directions.LEFT.getAngle() && Rotation.getAngle() < Directions.UP.getAngle()){
-				Rotation.setAngle(Directions.RIGHT.getAngle() - angleBonus);
-				return;
-			}
 			
-			//Rotation.invert();
+			//TODO Fix dis shiet
+			Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.DOWN));
+			
 			return;
 		}
 		
@@ -242,19 +188,6 @@ public class Ball {
 	
 	public static int getXPos(){
 		return xPos;
-	}
-	
-	public static boolean touchesWall(Wall wall){
-		
-		if(wall == Wall.TOP){
-			if(yPos <= -Ball.height/2){
-				return true;
-			}
-			
-			
-		}
-		
-		return false;
 	}
 	
 }

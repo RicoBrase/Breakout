@@ -14,16 +14,25 @@ public class Rotation{
 		return angle;
 	}
 	
-	public static void invert(){
-		addAngle(180);
+	public static int invert(int angle){
+		return validateAddAngle(180, angle);
 	}
-
+	
 	public static void addAngle(int angleBonus) {
-		angle = validateAddAngle(angleBonus);
+		angle = validateAddAngle(angleBonus, getAngle());
 		//angle += angleBonus;
 	}
 	
-	private static int validateAddAngle(int a){ //90
+	public static int mirrorAngle(int angle, Directions lot){
+		
+		int finalAngle = validateAddAngle(180, angle);
+		
+		finalAngle = (lot.getAngle() - finalAngle) + lot.getAngle();
+		
+		return finalAngle;
+	}
+	
+	private static int validateAddAngle(int a, int angle){ //90
 		
 		int newAngle = angle + a; //270 + 90 = 360
 		int finalAngle = newAngle; // 360

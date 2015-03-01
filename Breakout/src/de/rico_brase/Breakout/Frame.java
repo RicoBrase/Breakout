@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import de.rico_brase.Breakout.config.Config;
 import de.rico_brase.Breakout.handlers.KeyHandler;
 import de.rico_brase.Breakout.handlers.MouseHandler;
 import de.rico_brase.Breakout.utils.Assets;
@@ -23,12 +24,17 @@ public class Frame extends JFrame{
 	public Frame(){
 		super("Breakout");
 		
+		Config.loadFromDisk();
+		
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setUndecorated(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		device.setFullScreenWindow(this);
+		if(device.isFullScreenSupported() && GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length > 1){
+			System.out.println("[Debug] Fullscreen supported. Activating ...");
+			device.setFullScreenWindow(this);
+		}
 		
 		
 		Screen s = new Screen();

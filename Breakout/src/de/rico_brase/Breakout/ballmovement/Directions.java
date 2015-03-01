@@ -19,7 +19,7 @@ public enum Directions {
 	
 	public static Directions getDirectionByAngle(int angle){
 		
-		if(angle >= RIGHT.getAngle()/2 && angle < RIGHT.getAngle()/2) return RIGHT;
+		if(angle >= RIGHT.getAngle()/2 && angle < (RIGHT.getAngle()+360)/2) return RIGHT;
 		if(angle >= DOWN.getAngle()/2 && angle < DOWN.getAngle()/2) return DOWN;
 		if(angle >= LEFT.getAngle()/2 && angle < LEFT.getAngle()/2) return LEFT;
 		if(angle >= UP.getAngle()/2 && angle < UP.getAngle()/2) return UP;

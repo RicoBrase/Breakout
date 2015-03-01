@@ -26,7 +26,6 @@ public class MapLoader {
 			
 			
 			while((line = br.readLine()) != null){
-				
 				lnNr++;
 				
 				if(line.trim().isEmpty()){

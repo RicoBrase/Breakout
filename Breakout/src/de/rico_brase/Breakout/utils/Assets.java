@@ -36,6 +36,9 @@ public class Assets {
 		
 		public static final String LOGO = "/assets/images/main_menu/logo.png";
 		
+		public static final String GOTY = "/assets/images/main_menu/goty.png";
+		public static final String TENOFTEN = "/assets/images/main_menu/tenoften.png";
+		
 	}
 	
 	public class Game{
@@ -47,6 +50,11 @@ public class Assets {
 			public static final String TESTMAP = "/assets/maps/testmap.bomap";
 		}
 		
+	}
+	
+	public class End{
+		public static final String DAN = "/assets/images/end/dansgaming_sketch.png";
+		public static final String WAFFLE = "/assets/images/end/waffle_facepalm.png";
 	}
 	
 	public class General{

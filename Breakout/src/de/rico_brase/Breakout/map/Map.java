@@ -3,13 +3,15 @@ package de.rico_brase.Breakout.map;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
+import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.scenes.game.SceneGame;
 
 public class Map {
 
-	private Block[][] blocks;
+	public Block[][] blocks;
 	
 	public Map(){
 		
@@ -81,6 +83,23 @@ public class Map {
 	public void breakBlock(int xPos, int yPos){
 		Block block = this.getBlockAt(xPos, yPos);
 		this.setBlockAt(xPos, yPos, block.breakBlock());
+		
+		boolean winflag = true;
+		
+		checkWin: for(Block[] blockArr : blocks){
+			for(Block brBlock : blockArr){
+				if(brBlock != null){
+					if(brBlock.getBlockType() != Blocks.EMPTY){
+						winflag = false;
+						break checkWin;
+					}
+				}
+			}
+		}
+		
+		if(winflag){
+			win();
+		}
 	}
 	
 	public void render(Graphics2D g){
@@ -95,7 +114,9 @@ public class Map {
 		//g.drawRect(0, 0, this.blocks.length * SceneGame.blockWidth, this.blocks[0].length * SceneGame.blockHeight);
 	}
 	
-	
+	public void win(){
+		Screen.INSTANCE.setScene(Scenes.WON);
+	}
 	
 	
 }

@@ -21,7 +21,7 @@ public class Paddle {
 	public static void renderBar(Graphics2D g){
 		
 		if(reset){
-			width = Screen.INSTANCE.getWidth()/5;
+			width = Screen.INSTANCE.getWidth()/6;
 			xPos = Screen.INSTANCE.getWidth()/2;
 			reset = false;
 		}

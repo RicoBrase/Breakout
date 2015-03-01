@@ -7,14 +7,13 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import de.rico_brase.Breakout.ball.Ball;
-import de.rico_brase.Breakout.ballmovement.Rotation;
 import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapRenderer;
-import de.rico_brase.Breakout.paddle.Paddle;
+import de.rico_brase.Breakout.player.Player;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 
@@ -34,11 +33,16 @@ public class Screen extends JPanel implements Runnable{
 	
 	private Cursor blankCursor;
 	
+	public ArrayList<String> debugInfo;
+	
 	public Screen(){
 		super();
 		
 		INSTANCE = this;
 		currentScene = Scenes.MAIN_MENU;
+		
+		debugInfo = new ArrayList<String>();
+		debugInfo.add("");
 		
 		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 		blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blankCursor");
@@ -62,10 +66,19 @@ public class Screen extends JPanel implements Runnable{
 			currentScene.renderScene(g2, this);
 		}
 		
+		debugInfo.add("FPS: " + fps);
+		if(currentScene == Scenes.GAME) debugInfo.add("Lives: " + Player.INSTANCE.lives);
 		
 		g.setColor(Color.BLACK);
-		g.drawString("FPS: " + fps, 10, 15);
-		g.drawString("Angle: " + Rotation.getAngle(), 10, 30);
+		for(int i = 0; i < debugInfo.size(); i++){
+			g.drawString(debugInfo.get(i), 10, 15 + (15* i));
+		}
+//		g.drawString("FPS: " + fps, 10, 15);
+//		g.drawString("Angle: " + Rotation.getAngle(), 10, 30);
+//		if(currentScene == Scenes.GAME) g.drawString("Lives: " + Player.INSTANCE.lives, 10, 45);
+//		if(currentScene == Scenes.GAME) g.drawString("yPos: " + Ball.getYPos(), 10, 60);
+		
+		debugInfo.clear();
 		
 	}
 
@@ -105,6 +118,17 @@ public class Screen extends JPanel implements Runnable{
 			Scenes.MAIN_MENU.getScene().onSceneLoaded();
 			this.setCursor(Cursor.getDefaultCursor());
 		}
+	}
+	
+	public void setScene(Scenes scene){
+		currentScene = scene;
+		this.setCursor(Cursor.getDefaultCursor());
+	}
+	
+	public void loadMainMenu(){
+		currentScene = Scenes.MAIN_MENU;
+		Scenes.MAIN_MENU.getScene().onSceneLoaded();
+		this.setCursor(Cursor.getDefaultCursor());
 	}
 	
 	public void newGame(){
