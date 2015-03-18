@@ -12,10 +12,17 @@ import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
 import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.player.Player;
+import de.rico_brase.Breakout.powerups.PowerUps;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
 
+/**
+ * Diese Klasse enthält alle Methoden, die für den Ball wichtig sind.
+ * Rotationen werden in der Klasse {@link de.rico_brase.Breakout.ballmovement.Rotation Rotation} behandelt
+ * @author Rico Brase
+ *
+ */
 public class Ball {
 
 	public static int width = 30;
@@ -29,36 +36,37 @@ public class Ball {
 	
 	private static int speedMultiplier = 5;
 	
-	private static boolean firstLaunch = true;
-	
 	public static boolean stickToBar = true;
 	
+	/**
+	 * Die Rotation des Balls (Bild).
+	 */
 	public static int imgAngle = 0;
+	/**
+	 * Die Rotationsgeschwindigkeit des Balls.
+	 */
 	public static int animSpeed = 5;
 	
+	/**
+	 * Diese Methode zeichnet den Ball auf das Panel.
+	 * @param g Das Graphics-Objekt der {@link de.rico_brase.Breakout.Screen Screen}-Klasse.
+	 */
 	public static void renderBall(Graphics2D g){
-		//RenderManager.renderImageFromAssetsAt(Assets.Game.BAR, xPos-width/2, yPos, width, height, g);
-		//Color c = g.getColor();
-		//g.setColor(Color.ORANGE);
-		//g.fillOval(xPos, yPos, width, height);
-		//g.setColor(new Color(0, 0, 0, 255));
-		//g.setStroke(new BasicStroke(2.0F));
-		//g.drawOval(xPos, yPos, width, height);
-		//g.setColor(c);
 		
-		RenderManager.renderImageFromAssetsWithRotationAt(Assets.Game.BALL, xPos, yPos, width, height, imgAngle, g);
+		String imgloc = (PowerUps.FLAME.getPowerUp().isActive() ? Assets.Game.BALL_FLAME : Assets.Game.BALL);
+		
+		RenderManager.renderImageFromAssetsWithRotationAt(imgloc, xPos, yPos, width, height, imgAngle, g);
 	}
+	
 	
 	public static void setPos(int xPos, int yPos){
 		Ball.xPos = xPos;
 		Ball.yPos = yPos;
 	}
 	
-//	private static void calculateNewPosition(){
-//		newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
-//		newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
-//	}
-	
+	/**
+	 * Diese Methode bewegt den Ball anhand seiner Rotation und überprüft, ob der Ball einen Block, eine Wand oder das Paddle berührt.
+	 */
 	public static void move(){
 		
 		imgAngle += animSpeed;
@@ -66,28 +74,28 @@ public class Ball {
 		newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 		newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
 		
-		//LEFT
+		//LEFT-WALL
 		if((xPos+ new Double(newX).intValue()) <= 0){
 			bounce(Wall.LEFT);
 			newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 			newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
 		}
 		
-		//RIGHT
+		//RIGHT-WALL
 		if((xPos+new Double(newX).intValue()) >= Screen.INSTANCE.getWidth()-Ball.width){
 			bounce(Wall.RIGHT);
 			newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 			newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
 		}
 		
-		//TOP
+		//TOP-WALL
 		if((yPos+ new Double(newY).intValue()) <= 0){
 			bounce(Wall.TOP);
 			newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 			newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
 		}
 		
-		//BOTTOM
+		//BOTTOM-WALL
 		if((yPos+new Double(newY).intValue()) >= Screen.INSTANCE.getHeight()-Ball.height){
 			//System.out.println("[Debug] Lost!");
 			Player.INSTANCE.die();
@@ -105,12 +113,12 @@ public class Ball {
 			
 		}
 		
-		Block block = MapRenderer.getLoadedMap().getBlockAt((xPos+ new Double(newX).intValue() + (Ball.width/2)), (yPos+new Double(newY).intValue() + (Ball.height/2)));
+		Block block = MapRenderer.getLoadedMap().getBlockAt((xPos+ new Double(newX).intValue()/* + (Ball.width/2)*/), (yPos+new Double(newY).intValue() /*+ (Ball.height/2)*/));
 		
 		//Touches a block
 		if(block != null && block.getBlockType() != Blocks.EMPTY){
 			MapRenderer.getLoadedMap().breakBlock((xPos+ new Double(newX).intValue()), (yPos+new Double(newY).intValue()));
-			bounce(null);
+			if(!PowerUps.FLAME.getPowerUp().isActive()) bounce(null);
 			newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 			newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
 		}
@@ -119,6 +127,9 @@ public class Ball {
 		
 	}
 	
+	/**
+	 * Setze die Ball-Position auf die Mitte des Paddles und setzte die Rotation nach oben.
+	 */
 	public static void resetBall(){
 		Ball.xPos = Paddle.getXPos() - Ball.width/2;
 		Ball.yPos = Screen.INSTANCE.getHeight() - Paddle.height - height - 50 - (Player.INSTANCE.lives == 3 ? 0 : speedMultiplier);
@@ -128,6 +139,10 @@ public class Ball {
 		Rotation.setAngle(Directions.UP.getAngle());
 	}
 	
+	/**
+	 * Berechnet den Abprallwinkel des Balls.
+	 * @param wall Die Wand, von der der Ball abprallt. Siehe {@link de.rico_brase.Breakout.map.Wall}
+	 */
 	public static void bounce(Wall wall){
 		int angleBonus = Rotation.rand.nextInt(25);
 		
@@ -156,7 +171,7 @@ public class Ball {
 					for(int i = 0; i < (int)(Paddle.width/paddleSegmentWidth); i++){
 						if((i * paddleSegmentWidth) > (Paddle.getXPos() - Ball.xPos)){
 							Rotation.setAngle(Directions.UP.getAngle() + (int)(i*paddleSegmentWidth));
-							System.out.println("i: " + i + " | paddleSegmentWidth: " + paddleSegmentWidth + " | i*paddleSegmentWidth: " + i*paddleSegmentWidth);
+							//System.out.println("i: " + i + " | paddleSegmentWidth: " + paddleSegmentWidth + " | i*paddleSegmentWidth: " + i*paddleSegmentWidth);
 						}
 					}
 				}
@@ -165,7 +180,7 @@ public class Ball {
 					for(int i = 0; i < (int)(Paddle.width/paddleSegmentWidth); i++){
 						if((i * paddleSegmentWidth) < (Ball.xPos - Paddle.getXPos())){
 							Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.UP) + (int)(i*paddleSegmentWidth));
-							System.out.println("i: " + i + " | paddleSegmentWidth: " + paddleSegmentWidth + " | i*paddleSegmentWidth: " + i*paddleSegmentWidth);
+							//System.out.println("i: " + i + " | paddleSegmentWidth: " + paddleSegmentWidth + " | i*paddleSegmentWidth: " + i*paddleSegmentWidth);
 						}
 					}
 				}
@@ -176,18 +191,25 @@ public class Ball {
 		
 		if(wall == null){
 			
-			//TODO Fix dis shiet
-			Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.DOWN));
+			Directions.getDirectionByAngle(Rotation.getAngle());
+			Rotation.setAngle(Rotation.mirrorAngle(Rotation.getAngle(), Directions.UP));
 			
 			return;
 		}
 		
 	}
 	
+	/**
+	 * @return Die y-Position des Balls.
+	 */
 	public static int getYPos(){
 		return yPos;
 	}
 	
+	/**
+	 * 
+	 * @return Die x-Position des Balls.
+	 */
 	public static int getXPos(){
 		return xPos;
 	}

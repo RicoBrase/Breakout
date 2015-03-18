@@ -9,38 +9,14 @@ import de.rico_brase.Breakout.map.blocks.Blocks;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.scenes.game.SceneGame;
 
+/**
+ * Diese Klasse repräsentiert ein Spielfeld inkl. Blöcke.
+ * @author Rico Brase
+ *
+ */
 public class Map {
 
 	public Block[][] blocks;
-	
-	public Map(){
-		
-		this.blocks = new Block[10][20];
-		
-		setBlock(0, 0, new Block(Blocks.BLUE, 0, 0));
-		setBlock(1, 1, new Block(Blocks.GREEN, 1, 1));
-		setBlock(2, 2, new Block(Blocks.YELLOW, 2, 2));
-		setBlock(3, 3, new Block(Blocks.RED, 3, 3));
-		setBlock(4, 4, new Block(Blocks.BLACK, 4, 4));
-		
-		setBlock(5, 5, new Block(Blocks.BLUE, 5, 5));
-		setBlock(6, 6, new Block(Blocks.GREEN, 6, 6));
-		setBlock(7, 7, new Block(Blocks.YELLOW, 7, 7));
-		setBlock(8, 8, new Block(Blocks.RED, 8, 8));
-		setBlock(9, 9, new Block(Blocks.BLACK, 9, 9));
-		
-		setBlock(0, 10, new Block(Blocks.BLUE, 0, 10));
-		setBlock(1, 11, new Block(Blocks.GREEN, 1, 11));
-		setBlock(2, 12, new Block(Blocks.YELLOW, 2, 12));
-		setBlock(3, 13, new Block(Blocks.RED, 3, 13));
-		setBlock(4, 14, new Block(Blocks.BLACK, 4, 14));
-		
-		setBlock(5, 15, new Block(Blocks.BLUE, 5, 15));
-		setBlock(6, 16, new Block(Blocks.GREEN, 6, 16));
-		setBlock(7, 17, new Block(Blocks.YELLOW, 7, 17));
-		setBlock(8, 18, new Block(Blocks.RED, 8, 18));
-		setBlock(9, 19, new Block(Blocks.BLACK, 9, 19));
-	}
 	
 	public Map(Block[][] blocks){
 		this.blocks = blocks;
@@ -54,6 +30,12 @@ public class Map {
 		return this.blocks[x][y];
 	}
 	
+	/**
+	 * Gibt den Block an der gegebenen Position zurück.
+	 * @param xPos X-Position auf dem Bildschirm.
+	 * @param yPos Y-Position auf dem Bildschirm.
+	 * @return Der Block an der gegebenen Position.
+	 */
 	public Block getBlockAt(int xPos, int yPos){
 		for(int y = 0; y < this.blocks[0].length; y++){
 			for(int x = 0; x < this.blocks.length; x++){
@@ -68,6 +50,12 @@ public class Map {
 		return null;
 	}
 	
+	/**
+	 * Setzt den Block an der gegebenen Position.
+	 * @param xPos X-Position auf dem Bildschirm.
+	 * @param yPos Y-Position auf dem Bildschirm.
+	 * @param block Der Block, auf den der an der gegebenen Position gesetzt werden soll.
+	 */
 	public void setBlockAt(int xPos, int yPos, Block block){
 		for(int y = 0; y < this.blocks[0].length; y++){
 			for(int x = 0; x < this.blocks.length; x++){
@@ -80,6 +68,11 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * "Zerstört" den Block an der gegebenen Position.
+	 * @param xPos X-Position auf dem Bildschirm.
+	 * @param yPos Y-Position auf dem Bildschirm.
+	 */
 	public void breakBlock(int xPos, int yPos){
 		Block block = this.getBlockAt(xPos, yPos);
 		if(block != null){
@@ -104,6 +97,10 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * Ruft die Methode {@link de.rico_brase.Breakout.map.blocks.Block#renderBlock(Graphics2D) Block#renderBlock(Graphics2D)} für jeden Block auf, der in der dieser Welt geladen ist.
+	 * @param g
+	 */
 	public void render(Graphics2D g){
 		for(int y = 0; y < this.blocks[0].length; y++){
 			for(int x = 0; x < this.blocks.length; x++){
@@ -116,6 +113,9 @@ public class Map {
 		//g.drawRect(0, 0, this.blocks.length * SceneGame.blockWidth, this.blocks[0].length * SceneGame.blockHeight);
 	}
 	
+	/**
+	 * Iniziiert die "Gewonnen"-Szene.
+	 */
 	public void win(){
 		Screen.INSTANCE.setScene(Scenes.WON);
 	}

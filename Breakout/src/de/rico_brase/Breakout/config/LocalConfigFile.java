@@ -6,12 +6,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Spiegelt die Konfigurationsdatei auf der lokalen Festplatte wieder.
+ * @author Rico Brase
+ * @see java.io.File
+ */
 public class LocalConfigFile extends File{
 
 	private static final long serialVersionUID = -2632016997393186129L;
 	
+	/**
+	 * Der Pfad zu der Konfigurationsdatei.
+	 */
 	private static String path = System.getProperty("user.home") + File.separator + "Breakout" + File.separator + "config.bocfg";
 	
+	/**
+	 * Konstruktor der Konfigurationsdatei.
+	 * Erstellt eine neue Datei, wenn diese nicht vorhanden ist.
+	 */
 	public LocalConfigFile(){
 		super(path);
 		
@@ -68,6 +80,11 @@ public class LocalConfigFile extends File{
 		return null;
 	}
 	
+	/**
+	 * Liest die Eigenschaft unter den gegebenen Schlüssel aus und gibt sie zurück.
+	 * @param key Der Konfigurationsschlüssel.
+	 * @return Der Wert des Schlüssels.
+	 */
 	public Object readProperty(String key){
 		
 		String result = readPropertyFromFile(key);

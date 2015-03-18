@@ -6,9 +6,7 @@ import java.awt.Robot;
 
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ball.Ball;
-import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapRenderer;
-import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
 import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.player.Player;
@@ -53,7 +51,7 @@ public class SceneGame extends Scene{
 		
 		MapRenderer.renderMap(g);
 		
-		Paddle.renderBar(g);
+		Paddle.renderPaddle(g);
 		
 		if(!Ball.stickToBar && !paused){
 			Ball.move();

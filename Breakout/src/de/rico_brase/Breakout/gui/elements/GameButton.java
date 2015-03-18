@@ -6,6 +6,17 @@ import java.awt.Graphics2D;
 
 import de.rico_brase.Breakout.utils.RenderManager;
 
+/**
+ * Abstrakte Klasse, die einen Button repräsentiert.
+ * Alle untergeordneten Klassen müssen die abstrakten Methoden
+ * <ul>
+ * <li>{@link de.rico_brase.Breakout.gui.elements.GameButton#renderButton(Graphics2D) renderButton(Graphics2D)}</li>
+ * <li>{@link de.rico_brase.Breakout.gui.elements.GameButton#onLeftClick() onLeftClick()}</li>
+ * </ul>
+ * implementieren.
+ * @author Rico Brase
+ *
+ */
 public abstract class GameButton extends IGuiElement{
 	
 	private String text = "";
@@ -15,8 +26,16 @@ public abstract class GameButton extends IGuiElement{
 		setBounds(x, y, width, height);
 	}
 	
+	/**
+	 * Rendert den Button.
+	 * Hierbei wird das Aussehen des Knopfes festgelegt.
+	 * @param g
+	 */
 	public abstract void renderButton(Graphics2D g);
 	
+	/**
+	 * Rendert vordefinierte Eigenschaften des Buttons, zum Beispiel den Text.
+	 */
 	public void render(Graphics2D g){
 		renderButton(g);
 		
@@ -30,6 +49,9 @@ public abstract class GameButton extends IGuiElement{
 		g.setFont(orig_font);
 	}
 	
+	/**
+	 * Die Aktion, die ausgeführt wird, sobald der Knopf geklickt wird.
+	 */
 	public abstract void onLeftClick();
 	
 }

@@ -1,6 +1,8 @@
 package de.rico_brase.Breakout.scenes.info;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 import de.rico_brase.Breakout.Screen;
@@ -8,11 +10,37 @@ import de.rico_brase.Breakout.gui.elements.IGuiElement;
 import de.rico_brase.Breakout.gui.elements.buttons.MainMenuButton;
 import de.rico_brase.Breakout.scenes.Scene;
 import de.rico_brase.Breakout.scenes.Scenes;
+import de.rico_brase.Breakout.utils.RenderManager;
 
 public class SceneInfo extends Scene{
 
 	@Override
 	public void init(Screen s) {
+		
+		this.addElement(new IGuiElement(20, 20, s.getWidth()-40, Screen.HEIGHT-160) {
+			
+			@Override
+			public void render(Graphics2D g) {
+				g.setColor(new Color(170, 200, 0));
+				g.fillRect(this.xPos, this.yPos, this.width, this.height);
+				g.setColor(new Color(0, 0, 0, 150));
+				g.setStroke(new BasicStroke(4F));
+				g.drawRect(this.xPos+2, this.yPos+2, this.width-4, this.height-4);
+				
+				Font orig_font = g.getFont();
+				g.setColor(Color.BLACK);
+				g.setFont(g.getFont().deriveFont(24F).deriveFont(Font.BOLD));
+				RenderManager.drawStringCentered("Programmiert von: Rico Brase", this.width, 20, 100, g);
+				
+				
+				g.setFont(orig_font);
+			}
+			
+			@Override
+			public void onLeftClick() {
+				
+			}
+		});
 		
 		this.addElement(new MainMenuButton("Zurück zum Menü", Screen.WIDTH/4, Screen.HEIGHT-120, Screen.WIDTH/2, 100) {
 			

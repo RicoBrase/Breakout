@@ -14,9 +14,15 @@ import javax.swing.JPanel;
 import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.player.Player;
+import de.rico_brase.Breakout.powerups.PowerUps;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 
+/**
+ * Dies ist das Panel, auf welchem das Spiel und jeglicher sichtbarer Inhalt gezeichnet wird.
+ * @author Rico Brase
+ *
+ */
 public class Screen extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = -146713464426694906L;
@@ -24,6 +30,9 @@ public class Screen extends JPanel implements Runnable{
 	Thread th;
 	int fps = 0;
 	
+	/**
+	 * Aktuelle Szene.
+	 */
 	Scenes currentScene;
 	
 	public static Screen INSTANCE;
@@ -31,8 +40,14 @@ public class Screen extends JPanel implements Runnable{
 	public static int WIDTH = 0;
 	public static int HEIGHT = 0;
 	
+	/**
+	 * Unsichtbarer Cursor.
+	 */
 	private Cursor blankCursor;
 	
+	/**
+	 * Debuginfos, die in der oberen linken Bildschirmecke dargestellt werden.
+	 */
 	public ArrayList<String> debugInfo;
 	
 	public Screen(){
@@ -51,6 +66,10 @@ public class Screen extends JPanel implements Runnable{
 		th.start();
 	}
 	
+	/**
+	 * Zeichnet den sichtbaren Inhalt des Spiels.
+	 * @param g Das Graphics-Objekt des JPanels.
+	 */
 	@Override
 	public void paintComponent(Graphics g){
 		
@@ -67,7 +86,12 @@ public class Screen extends JPanel implements Runnable{
 		}
 		
 		debugInfo.add("FPS: " + fps);
-		if(currentScene == Scenes.GAME) debugInfo.add("Lives: " + Player.INSTANCE.lives);
+		if(currentScene == Scenes.GAME){
+			debugInfo.add("Lives: " + Player.INSTANCE.lives);
+			for(PowerUps pu : PowerUps.values()){
+				debugInfo.add(pu.toString() + ": " + pu.getPowerUp().isActive());
+			}
+		}
 		
 		g.setColor(Color.BLACK);
 		for(int i = 0; i < debugInfo.size(); i++){
@@ -82,6 +106,11 @@ public class Screen extends JPanel implements Runnable{
 		
 	}
 
+	/**
+	 * Der sog. Gameloop.
+	 * Ein Durchlauf der while-Schleife pro Frame.
+	 * Berechnung der FPS.
+	 */
 	@Override
 	public void run() {
 		
@@ -89,26 +118,25 @@ public class Screen extends JPanel implements Runnable{
 		int frames = 0;
 		
 		while(true){
-			
 			if(System.currentTimeMillis()-1000 >= lastFrame){
 				this.fps = frames;
 				lastFrame = System.currentTimeMillis();
 				frames = 0;
 			}
-			
 			frames++;
-			
 			try{
+				/**
+				 * Frame-Limiter.
+				 * Warte 1ms pro GameLoop-Durchgang.
+				 * --> Max. 1000 FPS
+				 */
 				Thread.sleep(1);
 			}catch(Exception ex){
 				ex.printStackTrace();
 			}
-			
 			repaint();
 		}
-		
 	}
-	
 	
 	public void changeScene(){
 		if(currentScene == Scenes.MAIN_MENU){
@@ -131,8 +159,12 @@ public class Screen extends JPanel implements Runnable{
 		this.setCursor(Cursor.getDefaultCursor());
 	}
 	
-	public void newGame(){
-		Map map = Assets.loadMapFromAssets(Assets.Game.Maps.TESTMAP);
+	public void newGame(Map map){
+		//Map map = Assets.loadMapFromAssets(Assets.Game.Maps.TESTMAP);
+		
+		if(map == null){
+			map = Assets.loadMapFromAssets(Assets.Game.Maps.TESTMAP);
+		}
 		
 		if(map == null){
 			return;

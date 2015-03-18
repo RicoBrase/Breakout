@@ -44,7 +44,9 @@ public class Assets {
 	public class Game{
 		
 		public static final String BAR = "/assets/images/game/bar_complete.png";
+		
 		public static final String BALL = "/assets/images/game/ball.png";
+		public static final String BALL_FLAME = "/assets/images/game/ball_flame.png";
 		
 		public class Maps{
 			public static final String TESTMAP = "/assets/maps/testmap.bomap";

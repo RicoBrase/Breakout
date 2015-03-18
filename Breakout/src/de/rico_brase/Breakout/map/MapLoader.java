@@ -9,8 +9,18 @@ import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
 
+/**
+ * Diese Klasse liest *.bomap-Dateien ein und konvertiert diese in ein {@link de.rico_brase.Breakout.map.Map Map}-Objekt, damit diese gerendert werden kann.
+ * @author Rico Brase
+ *
+ */
 public class MapLoader {
 
+	/**
+	 * Liest *.bomap-Dateien ein und erstellt daraus ein {@link de.rico_brase.Breakout.map.Map Map}-Objekt.
+	 * @param file Die einzulesende Datei.
+	 * @return Das {@link de.rico_brase.Breakout.map.Map Map}-Objekt, welches aus der gegebenen Datei erstellt wurde.
+	 */
 	public static Map loadMapFromFile(File file){
 		
 		int lnNr = 0;

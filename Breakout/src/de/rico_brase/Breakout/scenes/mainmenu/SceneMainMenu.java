@@ -24,7 +24,8 @@ public class SceneMainMenu extends Scene{
 			
 			@Override
 			public void onLeftClick(){
-				Screen.INSTANCE.newGame();
+				//Screen.INSTANCE.newGame();
+				Screen.INSTANCE.setScene(Scenes.LOAD_MAP);
 			}
 			
 		});

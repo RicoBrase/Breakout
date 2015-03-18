@@ -3,15 +3,16 @@ package de.rico_brase.Breakout.map.blocks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import de.rico_brase.Breakout.Screen;
-import de.rico_brase.Breakout.map.Map;
-import de.rico_brase.Breakout.map.MapRenderer;
-import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.scenes.game.SceneGame;
 
+/**
+ * Diese Klasse repräsentiert ein Block-Objekt auf dem {@link de.rico_brase.Breakout.map.Map Spielfeld}.
+ * @author Rico Brase
+ *
+ */
 public class Block{
 
-	private int breakCount;
+	//private int breakCount;
 	private Color color;
 	
 	private Blocks block;
@@ -20,7 +21,7 @@ public class Block{
 	private int yPos= 0;
 	
 	public Block(Blocks block, int xPos, int yPos){
-		this.breakCount = block.getBreakCount();
+		//this.breakCount = block.getBreakCount();
 		this.color = block.getColor();
 		
 		this.block = block;
@@ -29,10 +30,18 @@ public class Block{
 		this.yPos = (yPos);
 	}
 	
+	/**
+	 * Gibt den {@link de.rico_brase.breakout.map.blocks.Blocks Blocktyp} dieses Blockes zurück.
+	 * @return Der {@link de.rico_brase.breakout.map.blocks.Blocks Blocktyp} dieses Blockes.
+	 */
 	public Blocks getBlockType(){
 		return this.block;
 	}
 	
+	/**
+	 * Rendert diesen Block.
+	 * @param g
+	 */
 	public void renderBlock(Graphics2D g){
 		
 		int x = this.xPos * SceneGame.blockWidth;
@@ -49,6 +58,10 @@ public class Block{
 		g.setColor(old_color);
 	}
 	
+	/**
+	 * "Zerstört" diesen Block und setzt ihn auf den nächst-tieferen Blocktypen.
+	 * @return Das neue Block-Objekt nach der Zerstörung des alten Blocks.
+	 */
 	public Block breakBlock(){
 		Blocks newBlock = block.getBreakedBlock();
 		this.block = newBlock;
