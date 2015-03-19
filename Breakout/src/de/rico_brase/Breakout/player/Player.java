@@ -2,7 +2,6 @@ package de.rico_brase.Breakout.player;
 
 import java.util.ArrayList;
 
-import de.rico_brase.Breakout.powerup.PowerUp;
 import de.rico_brase.Breakout.powerup.PowerUps;
 
 /**

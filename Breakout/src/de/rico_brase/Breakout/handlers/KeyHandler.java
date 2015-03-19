@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ball.Ball;
 import de.rico_brase.Breakout.config.Config;
-import de.rico_brase.Breakout.powerup.PowerUps;
 import de.rico_brase.Breakout.scenes.Scenes;
 
 /**
