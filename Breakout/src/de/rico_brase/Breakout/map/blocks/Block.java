@@ -3,6 +3,8 @@ package de.rico_brase.Breakout.map.blocks;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import de.rico_brase.Breakout.powerup.PowerUpManager;
+import de.rico_brase.Breakout.powerup.PowerUps;
 import de.rico_brase.Breakout.scenes.game.SceneGame;
 
 /**
@@ -38,6 +40,10 @@ public class Block{
 		return this.block;
 	}
 	
+	public int getXPos(){
+		return this.xPos * SceneGame.blockWidth;
+	}
+	
 	/**
 	 * Rendert diesen Block.
 	 * @param g
@@ -63,9 +69,13 @@ public class Block{
 	 * @return Das neue Block-Objekt nach der Zerstörung des alten Blocks.
 	 */
 	public Block breakBlock(){
-		Blocks newBlock = block.getBreakedBlock();
-		this.block = newBlock;
+		Blocks newBlockType = block.getBreakedBlock();
+		this.block = newBlockType;
 		
-		return (newBlock == null ? null : new Block(newBlock, this.xPos, this.yPos));
+		Block newBlock = new Block(newBlockType, this.xPos, this.yPos);
+		
+		PowerUpManager.add(PowerUps.getRandomPowerUp(newBlock));
+		
+		return (newBlockType == null ? null : newBlock);
 	}
 }

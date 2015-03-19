@@ -3,7 +3,8 @@ package de.rico_brase.Breakout.paddle;
 import java.awt.Graphics2D;
 
 import de.rico_brase.Breakout.Screen;
-import de.rico_brase.Breakout.powerups.PowerUps;
+import de.rico_brase.Breakout.player.Player;
+import de.rico_brase.Breakout.powerup.PowerUps;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
 
@@ -29,12 +30,12 @@ public class Paddle {
 	public static void renderPaddle(Graphics2D g){
 		
 		if(reset){
-			width = Screen.INSTANCE.getWidth()/(PowerUps.PADDLE_LENGTH.getPowerUp().isActive() ? 1 : 6);
+			width = Screen.INSTANCE.getWidth()/(Player.INSTANCE.current_powerups.contains(PowerUps.PADDLE_LENGTH) ? 3 : 6);
 			xPos = Screen.INSTANCE.getWidth()/2;
 			reset = false;
 		}
 		
-		width = Screen.INSTANCE.getWidth()/(PowerUps.PADDLE_LENGTH.getPowerUp().isActive() ? 1 : 6);
+		width = Screen.INSTANCE.getWidth()/(Player.INSTANCE.current_powerups.contains(PowerUps.PADDLE_LENGTH) ? 3 : 6);
 		
 		yPos = Screen.INSTANCE.getHeight() - height - 50;
 		

@@ -1,5 +1,10 @@
 package de.rico_brase.Breakout.player;
 
+import java.util.ArrayList;
+
+import de.rico_brase.Breakout.powerup.PowerUp;
+import de.rico_brase.Breakout.powerup.PowerUps;
+
 /**
  * Repräsentiert den aktuellen Spieler und hält die aktuellen Leben.
  * @author Rico Brase
@@ -11,10 +16,13 @@ public class Player {
 	
 	public static Player INSTANCE;
 	
+	public ArrayList<PowerUps> current_powerups;
+	
 	public int lives = 3; 
 	
 	public Player(){
 		INSTANCE = this;
+		current_powerups = new ArrayList<PowerUps>();
 	}
 	
 	/**
@@ -29,6 +37,10 @@ public class Player {
 	 */
 	public void reset(){
 		lives = starting_lives;
+	}
+	
+	public void addPowerUp(PowerUps pu){
+		current_powerups.add(pu);
 	}
 	
 	/**

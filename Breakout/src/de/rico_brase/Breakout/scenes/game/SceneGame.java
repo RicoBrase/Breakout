@@ -10,6 +10,7 @@ import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.map.blocks.Blocks;
 import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.player.Player;
+import de.rico_brase.Breakout.powerup.PowerUpManager;
 import de.rico_brase.Breakout.scenes.Scene;
 
 public class SceneGame extends Scene{
@@ -52,6 +53,8 @@ public class SceneGame extends Scene{
 		MapRenderer.renderMap(g);
 		
 		Paddle.renderPaddle(g);
+		
+		PowerUpManager.handlePowerUpManagement(g);
 		
 		if(!Ball.stickToBar && !paused){
 			Ball.move();

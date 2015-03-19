@@ -48,6 +48,12 @@ public class Assets {
 		public static final String BALL = "/assets/images/game/ball.png";
 		public static final String BALL_FLAME = "/assets/images/game/ball_flame.png";
 		
+		public class Powerups{
+			public static final String FLAME_UP = "/assets/images/game/powerups/flame.png";
+			public static final String HEALTH_UP = "/assets/images/game/powerups/health.png";
+			public static final String PADDLE_UP = "/assets/images/game/powerups/paddle.png";
+		}
+		
 		public class Maps{
 			public static final String TESTMAP = "/assets/maps/testmap.bomap";
 		}

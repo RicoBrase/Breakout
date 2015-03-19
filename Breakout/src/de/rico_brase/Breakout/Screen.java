@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import de.rico_brase.Breakout.map.Map;
 import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.player.Player;
-import de.rico_brase.Breakout.powerups.PowerUps;
+import de.rico_brase.Breakout.powerup.PowerUps;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 
@@ -88,8 +88,8 @@ public class Screen extends JPanel implements Runnable{
 		debugInfo.add("FPS: " + fps);
 		if(currentScene == Scenes.GAME){
 			debugInfo.add("Lives: " + Player.INSTANCE.lives);
-			for(PowerUps pu : PowerUps.values()){
-				debugInfo.add(pu.toString() + ": " + pu.getPowerUp().isActive());
+			for(PowerUps pu : Player.INSTANCE.current_powerups){
+				debugInfo.add(pu.toString());
 			}
 		}
 		

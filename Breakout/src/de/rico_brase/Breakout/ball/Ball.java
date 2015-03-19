@@ -12,7 +12,7 @@ import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.map.blocks.Blocks;
 import de.rico_brase.Breakout.paddle.Paddle;
 import de.rico_brase.Breakout.player.Player;
-import de.rico_brase.Breakout.powerups.PowerUps;
+import de.rico_brase.Breakout.powerup.PowerUps;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
@@ -53,7 +53,7 @@ public class Ball {
 	 */
 	public static void renderBall(Graphics2D g){
 		
-		String imgloc = (PowerUps.FLAME.getPowerUp().isActive() ? Assets.Game.BALL_FLAME : Assets.Game.BALL);
+		String imgloc = (Player.INSTANCE.current_powerups.contains(PowerUps.FLAME) ? Assets.Game.BALL_FLAME : Assets.Game.BALL);
 		
 		RenderManager.renderImageFromAssetsWithRotationAt(imgloc, xPos, yPos, width, height, imgAngle, g);
 	}
@@ -118,7 +118,7 @@ public class Ball {
 		//Touches a block
 		if(block != null && block.getBlockType() != Blocks.EMPTY){
 			MapRenderer.getLoadedMap().breakBlock((xPos+ new Double(newX).intValue()), (yPos+new Double(newY).intValue()));
-			if(!PowerUps.FLAME.getPowerUp().isActive()) bounce(null);
+			if(!Player.INSTANCE.current_powerups.contains(PowerUps.FLAME)) bounce(null);
 			newX = MovementUtils.getVelocity(MovementUtils.getDirectionX(Rotation.getAngle()), speedMultiplier);
 			newY = MovementUtils.getVelocity(MovementUtils.getDirectionY(Rotation.getAngle()), speedMultiplier);
 		}

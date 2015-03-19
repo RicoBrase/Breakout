@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.ball.Ball;
 import de.rico_brase.Breakout.config.Config;
-import de.rico_brase.Breakout.powerups.PowerUps;
+import de.rico_brase.Breakout.powerup.PowerUps;
 import de.rico_brase.Breakout.scenes.Scenes;
 
 /**
@@ -83,21 +83,21 @@ public class KeyHandler implements KeyListener{
 			}
 			break;
 			
-		case KeyEvent.VK_F:
-			if(s.getCurrentScene() == Scenes.GAME){
-				PowerUps.FLAME.getPowerUp().start();
-			}
-			break;
-		case KeyEvent.VK_G:
-			if(s.getCurrentScene() == Scenes.GAME){
-				PowerUps.PADDLE_LENGTH.getPowerUp().start();
-			}
-			break;
-		case KeyEvent.VK_H:
-			if(s.getCurrentScene() == Scenes.GAME){
-				PowerUps.EXTRA_LIFE.getPowerUp().start();
-			}
-			break;
+//		case KeyEvent.VK_F:
+//			if(s.getCurrentScene() == Scenes.GAME){
+//				PowerUps.FLAME.getPowerUp().start();
+//			}
+//			break;
+//		case KeyEvent.VK_G:
+//			if(s.getCurrentScene() == Scenes.GAME){
+//				PowerUps.PADDLE_LENGTH.getPowerUp().start();
+//			}
+//			break;
+//		case KeyEvent.VK_H:
+//			if(s.getCurrentScene() == Scenes.GAME){
+//				PowerUps.EXTRA_LIFE.getPowerUp().start();
+//			}
+//			break;
 		default:
 			if(s.getCurrentScene() == Scenes.INFO){
 				code_step = 0;
