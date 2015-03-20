@@ -5,11 +5,15 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.io.File;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.gui.elements.IGuiElement;
 import de.rico_brase.Breakout.gui.elements.buttons.MainMenuButton;
+import de.rico_brase.Breakout.map.MapLoader;
 import de.rico_brase.Breakout.scenes.Scene;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.RenderManager;
@@ -58,7 +62,12 @@ public class SceneInfo extends Scene{
 			public void onLeftClick(){
 				if(Desktop.isDesktopSupported()){
 					try {
-						Desktop.getDesktop().browse(URI.create(SceneInfo.class.getResource("/README.txt").getFile().substring(1)));
+						
+						String path = (new File(MapLoader.defaultPath)).getParent();
+						
+						Files.copy(new File(SceneInfo.class.getResource("/README.txt").getFile()).toPath(), new File(path + File.separator + "README.txt").toPath(), StandardCopyOption.REPLACE_EXISTING);
+						
+						Desktop.getDesktop().browse(URI.create((path+File.separator+"README.txt").replace("\\", "/")));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
