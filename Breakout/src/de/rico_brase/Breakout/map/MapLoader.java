@@ -4,8 +4,6 @@ import java.awt.Cursor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.map.blocks.Block;
@@ -85,7 +83,8 @@ public class MapLoader {
 			dir.mkdirs();
 			File default_map = Assets.getFileFromAssets(Assets.Game.Maps.TESTMAP);
 			try {
-				Files.copy(default_map.toPath(), new File(defaultPath + default_map.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+				Assets.copyFileFromAssetsToDisk(Assets.Game.Maps.TESTMAP, defaultPath + default_map.getName());
+				//Files.copy(default_map.toPath(), new File(defaultPath + default_map.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

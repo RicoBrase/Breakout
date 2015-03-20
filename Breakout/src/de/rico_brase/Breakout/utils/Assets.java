@@ -2,6 +2,9 @@ package de.rico_brase.Breakout.utils;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.swing.ImageIcon;
 
@@ -55,6 +58,29 @@ public class Assets {
 	 */
 	public static File getFileFromAssets(String loc){
 		return new File(MapLoader.class.getResource(loc).getFile());
+	}
+	
+	public static void copyFileFromAssetsToDisk(String from, String to) throws Exception{
+		InputStream stream = null;
+		OutputStream resStreamOut = null;
+		try{
+			stream = Assets.class.getResourceAsStream(from);
+			if(stream == null){
+				throw new NullPointerException();
+			}
+			
+			int readBytes;
+			byte[] buffer = new byte[4096];
+			resStreamOut = new FileOutputStream(to);
+			while((readBytes = stream.read(buffer)) > 0){
+				resStreamOut.write(buffer, 0, readBytes);
+			}
+		}catch(Exception e){
+			throw e;
+		}finally{
+			stream.close();
+			resStreamOut.close();
+		}
 	}
 	
 	/**

@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -131,9 +132,9 @@ public class Screen extends JPanel implements Runnable{
 				/**
 				 * Frame-Limiter.
 				 * Warte 1ms pro GameLoop-Durchgang.
-				 * --> Max. 1000 FPS
+				 * --> Max. 500 FPS
 				 */
-				Thread.sleep(1);
+				Thread.sleep(2);
 			}catch(Exception ex){
 				ex.printStackTrace();
 			}
@@ -166,7 +167,13 @@ public class Screen extends JPanel implements Runnable{
 		//Map map = Assets.loadMapFromAssets(Assets.Game.Maps.TESTMAP);
 		
 		if(map == null){
-			map = Assets.loadMapFromAssets(Assets.Game.Maps.TESTMAP);
+			//map = Assets.loadMapFromAssets(Assets.Game.Maps.TESTMAP);
+			try {
+				Assets.copyFileFromAssetsToDisk(Assets.Game.Maps.TESTMAP, MapLoader.defaultPath + Assets.getFileFromAssets(Assets.Game.Maps.TESTMAP).getName());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			map = MapLoader.loadMapFromFile(new File(MapLoader.defaultPath + Assets.getFileFromAssets(Assets.Game.Maps.TESTMAP).getName()));
 		}
 		
 		if(map == null){
