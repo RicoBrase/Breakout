@@ -37,7 +37,7 @@ public class MapLoader {
 		
 		try{
 			
-			Block[][] blocks = new Block[10][20];
+			Block[][] blocks = new Block[10][15];
 			
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;

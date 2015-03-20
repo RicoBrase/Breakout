@@ -43,7 +43,7 @@ public class PowerUpManager {
 		
 		for(PowerUp pu : pu_cloned){
 			pu.xPos = pu.spawnLoc.getXPos() + (SceneGame.blockWidth/2)-20;
-			pu.yPos = pu.spawnLoc.getYPos() + (SceneGame.blockHeight/2)-20;
+			if(pu.yPos <= 10) pu.yPos = pu.spawnLoc.getYPos() + (SceneGame.blockHeight/2)-20;
 			pu.yPos += 5;
 			pu.renderPowerUp(g);
 			if(pu.xPos+40 >= (Paddle.getXPos() - (Paddle.width/2)) && pu.xPos <= (Paddle.getXPos() + (Paddle.width/2))){
