@@ -13,6 +13,11 @@ import de.rico_brase.Breakout.player.Player;
 import de.rico_brase.Breakout.powerup.PowerUpManager;
 import de.rico_brase.Breakout.scenes.Scene;
 
+/**
+ * Die "Spielszene". Hier findet das Spielgeschehen statt.
+ * @author Rico Brase
+ *
+ */
 public class SceneGame extends Scene{
 
 	public static SceneGame INSTANCE;

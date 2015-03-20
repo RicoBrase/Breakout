@@ -10,6 +10,11 @@ import de.rico_brase.Breakout.scenes.lost.SceneLost;
 import de.rico_brase.Breakout.scenes.mainmenu.SceneMainMenu;
 import de.rico_brase.Breakout.scenes.won.SceneWon;
 
+/**
+ * Auflistung aller existenten Szenen.
+ * @author Rico Brase
+ *
+ */
 public enum Scenes {
 
 	MAIN_MENU(new SceneMainMenu()),
@@ -26,20 +31,38 @@ public enum Scenes {
 		this.scene = scene;
 	}
 	
+	/**
+	 * Methode ruft die jeweilige render-Methode der Szene auf.
+	 * @param g
+	 * @param s
+	 */
 	public void renderScene(Graphics2D g, Screen s){
 		this.scene.renderScene(g, s);
 	}
 	
+	/**
+	 * Gibt die Instanz der Szene zurück.
+	 * @return Instanz der Szene.
+	 */
 	public Scene getScene(){
 		return this.scene;
 	}
 	
+	/**
+	 * Initialisiert die Szene.
+	 * @param s
+	 * @return
+	 */
 	public Scenes init(Screen s){
 		this.scene.init(s);
 		this.initialized = true;
 		return this;
 	}
 	
+	/**
+	 * Gibt zurück, ob die Szene bereits initialisiert wurde.
+	 * @return Wurde die Szene initialisiert?
+	 */
 	public boolean isInitialized(){
 		return this.initialized;
 	}

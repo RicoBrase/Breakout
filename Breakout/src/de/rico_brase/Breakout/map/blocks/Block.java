@@ -78,4 +78,8 @@ public class Block{
 		
 		return (newBlockType == null ? null : newBlock);
 	}
+
+	public int getYPos() {
+		return this.yPos * SceneGame.blockHeight;
+	}
 }

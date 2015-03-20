@@ -7,11 +7,15 @@ import java.util.TimerTask;
 import de.rico_brase.Breakout.map.blocks.Block;
 import de.rico_brase.Breakout.player.Player;
 
+/**
+ * Diese abstrakte Klasse repräsentiert ein PowerUp auf dem Spielfeld.
+ * @author Rico Brase
+ *
+ */
 public abstract class PowerUp {
 
 	private int duration;
 	private double chance;
-	private boolean enabled = false;
 	
 	public int xPos = 0;
 	public int yPos = 0;
@@ -25,18 +29,27 @@ public abstract class PowerUp {
 		this.chance = chance;
 	}
 	
+	/**
+	 * Gibt die Dauer des Effektes des PowerUps zurück.
+	 * @return Die Dauer des Effektes.
+	 */
 	public int getDuration(){
 		return duration;
 	}
 	
+	/**
+	 * Gibt die Wahrscheinlichkeit zurück, mit der ein PowerUp gespawnt wird.
+	 * @return Die Chance auf dieses PowerUp.
+	 */
 	public double getChance(){
 		return this.chance;
 	}
 	
-	public boolean isActive(){
-		return enabled;
-	}
-	
+	/**
+	 * "Startet" den Effekt des PowerUps, der in der {@link de.rico_brase.Breakout.powerup.PowerUp#doStuff() doStuff()}-Methode definiert wurde.
+	 * Die meisten Effekte werden allerdings in den Klassen eingebaut, in denen das PowerUp einen Effekt erzielen soll.
+	 * Zum Beispiel für das "Flame"-PowerUp in der {@link de.rico_brase.Breakout.ball.Ball Ball}-Klasse.
+	 */
 	public void start(){
 		
 		for(PowerUps pus : PowerUps.values()){
@@ -63,8 +76,15 @@ public abstract class PowerUp {
 		doStuff();
 	}
 	
+	/**
+	 * @see de.rico_brase.Breakout.powerup.PowerUp#start()
+	 */
 	public abstract void doStuff();
 	
+	/**
+	 * Rendert das PowerUp auf dem Spielfeld.
+	 * @param g
+	 */
 	public abstract void renderPowerUp(Graphics2D g);
 	
 }

@@ -13,6 +13,15 @@ import de.rico_brase.Breakout.scenes.Scene;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
 
+/**
+ * Die "Verloren"-Szene.
+ * Diese wird angezeigt, sollten die Leben des Spielers auf 0 sinken.
+ * 
+ * TODO Den Schriftzug "Verloren" durch eine Grafik (siehe Hauptmenü) ersetzen.
+ * 
+ * @author Rico Brase
+ *
+ */
 public class SceneLost extends Scene{
 
 	public SceneLost(){

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import de.rico_brase.Breakout.map.Map;
+import de.rico_brase.Breakout.map.MapLoader;
 import de.rico_brase.Breakout.map.MapRenderer;
 import de.rico_brase.Breakout.player.Player;
 import de.rico_brase.Breakout.powerup.PowerUps;
@@ -61,6 +62,8 @@ public class Screen extends JPanel implements Runnable{
 		
 		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 		blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blankCursor");
+		
+		MapLoader.firstRun();
 		
 		th = new Thread(this);
 		th.start();

@@ -1,7 +1,5 @@
 package de.rico_brase.Breakout;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +40,11 @@ public class Frame extends JFrame{
 			e.printStackTrace();
 		}
 		
-		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		if(device.isFullScreenSupported() && GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length > 1){
-			//System.out.println("[Debug] Fullscreen supported. Activating ...");
-			device.setFullScreenWindow(this);
-		}
+//		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+//		if(device.isFullScreenSupported() && GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length > 1){
+//			//System.out.println("[Debug] Fullscreen supported. Activating ...");
+//			device.setFullScreenWindow(this);
+//		}
 		
 		
 		Screen s = new Screen();

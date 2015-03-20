@@ -13,10 +13,19 @@ public class Player {
 
 	private static final int starting_lives = 3;
 	
+	/**
+	 * Die Instanz des aktuellen Spielers.
+	 */
 	public static Player INSTANCE;
 	
+	/**
+	 * Alle derzeit aktiven PowerUps.
+	 */
 	public ArrayList<PowerUps> current_powerups;
 	
+	/**
+	 * Die aktuelle Anzahl an Leben des Spielers.
+	 */
 	public int lives = 3; 
 	
 	public Player(){
@@ -38,6 +47,10 @@ public class Player {
 		lives = starting_lives;
 	}
 	
+	/**
+	 * Fügt ein neues PowerUp zum aktiven Spieler hinzu.
+	 * @param pu Das hinzuzufügende PowerUp.
+	 */
 	public void addPowerUp(PowerUps pu){
 		current_powerups.add(pu);
 	}

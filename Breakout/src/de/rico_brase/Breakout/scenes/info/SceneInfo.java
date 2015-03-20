@@ -2,8 +2,12 @@ package de.rico_brase.Breakout.scenes.info;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 
 import de.rico_brase.Breakout.Screen;
 import de.rico_brase.Breakout.gui.elements.IGuiElement;
@@ -12,12 +16,20 @@ import de.rico_brase.Breakout.scenes.Scene;
 import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.RenderManager;
 
+/**
+ * Die Informationsszene. Hier werden Informationen zu dem Spiel angezeigt.
+ * Für weitere Informationen, die nicht in das Spiel hinein programmiert wurden, steht eine README.txt zur Verfügung.
+ * Diese enthält neben einer Spielanleitung auch weitere Hinweise.
+ * 
+ * @author Rico Brase
+ *
+ */
 public class SceneInfo extends Scene{
 
 	@Override
 	public void init(Screen s) {
 		
-		this.addElement(new IGuiElement(20, 20, s.getWidth()-40, Screen.HEIGHT-160) {
+		this.addElement(new IGuiElement(20, 20, s.getWidth()-40, Screen.HEIGHT-270) {
 			
 			@Override
 			public void render(Graphics2D g) {
@@ -40,6 +52,21 @@ public class SceneInfo extends Scene{
 			public void onLeftClick() {
 				
 			}
+		});
+		
+		this.addElement(new MainMenuButton("Öffne Readme.txt", Screen.WIDTH/4, Screen.HEIGHT-230, Screen.WIDTH/2, 100) {
+			
+			@Override
+			public void onLeftClick(){
+				if(Desktop.isDesktopSupported()){
+					try {
+						Desktop.getDesktop().browse(URI.create(SceneInfo.class.getResource("/README.txt").getFile().substring(1)));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
 		});
 		
 		this.addElement(new MainMenuButton("Zurück zum Menü", Screen.WIDTH/4, Screen.HEIGHT-120, Screen.WIDTH/2, 100) {

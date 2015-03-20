@@ -2,8 +2,10 @@ package de.rico_brase.Breakout.scenes.loadmap;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.io.File;
+import java.net.URI;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -16,6 +18,12 @@ import de.rico_brase.Breakout.map.MapLoader;
 import de.rico_brase.Breakout.scenes.Scene;
 import de.rico_brase.Breakout.scenes.Scenes;
 
+/**
+ * Diese Szene ist die Zwischenstufe zwischen dem Hauptmenü und dem eigentlichen Spiel.
+ * Hier muss der Spieler eine Map auswählen und laden (oder einfach direkt das Spiel laden, um die Standard-Map zu laden).
+ * @author Rico Brase
+ *
+ */
 public class SceneLoadMap extends Scene{
 	
 	private File mapFile = null;
@@ -36,7 +44,7 @@ public class SceneLoadMap extends Scene{
 
 			@Override
 			public void onLeftClick() {
-				final JFileChooser fileDiag = new JFileChooser();
+				final JFileChooser fileDiag = new JFileChooser(new File(MapLoader.defaultPath));
 				fileDiag.setAcceptAllFileFilterUsed(false);
 				fileDiag.setFileFilter(new FileFilter(){
 
@@ -62,6 +70,7 @@ public class SceneLoadMap extends Scene{
 					}
 					
 				});
+				
 				int result = fileDiag.showDialog(Screen.INSTANCE, "Map laden ...");
 				if(result == JFileChooser.APPROVE_OPTION){
 					mapFile = fileDiag.getSelectedFile();
@@ -72,7 +81,7 @@ public class SceneLoadMap extends Scene{
 			
 		});
 		
-		this.addElement(new MainMenuButton("Map Laden", Screen.WIDTH/4, Screen.HEIGHT-230, Screen.WIDTH/2, 100) {
+		this.addElement(new MainMenuButton("Map Laden", Screen.WIDTH/4, Screen.HEIGHT-340, Screen.WIDTH/2, 100) {
 			
 			@Override
 			public void onLeftClick() {
@@ -80,6 +89,20 @@ public class SceneLoadMap extends Scene{
 					mapFile = new File("");
 				}
 				Screen.INSTANCE.newGame(MapLoader.loadMapFromFile(mapFile));
+			}
+		});
+		
+		this.addElement(new MainMenuButton("Map-Ordner öffnen", Screen.WIDTH/4, Screen.HEIGHT-230, Screen.WIDTH/2, 100) {
+			
+			@Override
+			public void onLeftClick() {
+				try {
+					if(Desktop.isDesktopSupported()){
+						Desktop.getDesktop().browse(URI.create((MapLoader.defaultPath.substring(0, MapLoader.defaultPath.length()).replace("\\", "/"))));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		

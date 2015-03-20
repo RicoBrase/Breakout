@@ -13,6 +13,13 @@ import de.rico_brase.Breakout.scenes.Scene;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
 
+/**
+ * Die "Gewonnen"-Szene. Diese wird angezeigt, sollte ein Spieler alle Blöcke einer Map zerstört haben.
+ * 
+ * TODO Den Schriftzug "Gewonnen" durch eine entsprechende Grafik ersetzen.
+ * @author Rico Brase
+ *
+ */
 public class SceneWon extends Scene{
 
 	public SceneWon(){

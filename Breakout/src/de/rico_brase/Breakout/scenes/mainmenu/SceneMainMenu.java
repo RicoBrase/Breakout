@@ -12,6 +12,11 @@ import de.rico_brase.Breakout.scenes.Scenes;
 import de.rico_brase.Breakout.utils.Assets;
 import de.rico_brase.Breakout.utils.RenderManager;
 
+/**
+ * Die Szene, in welcher das Hauptmenü dargestellt wird.
+ * @author Rico Brase
+ *
+ */
 public class SceneMainMenu extends Scene{
 	
 	public SceneMainMenu(){
